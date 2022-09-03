@@ -14,7 +14,7 @@ function ActivitiesList() {
         }}
         data={activitiesCtx.activities}
         renderItem={(itemData) => {
-          return <ActivityItem {...itemData.item} />;
+          return <ActivityItem {...itemData.item} index={itemData.index} />;
         }}
       />
     </View>
@@ -26,7 +26,6 @@ export default ActivitiesList;
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
-    marginHorizontal: 8,
-    marginVertical: 4,
+    paddingVertical: 4,
   },
 });

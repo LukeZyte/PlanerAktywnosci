@@ -1,9 +1,15 @@
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { ActivitiesContext } from "../../store/activitiesContext";
 
 function ActivityItem(props) {
   const navigation = useNavigation();
+
+  const activitiesCtx = useContext(ActivitiesContext);
+
+  let isLastItem = props.index === activitiesCtx.activities.length - 1;
 
   let today = new Date();
   let activityDay = new Date(props.date);
@@ -17,22 +23,24 @@ function ActivityItem(props) {
   } else if (daysLeft === "1") {
     daysText = "dzień";
   } else if (daysLeft === "-1") {
-    daysText = "dzień temu";
+    daysText = "Wczoraj";
   } else if (daysLeft < -1) {
     daysText = "dni temu";
   }
 
   let display = "";
-  if (daysLeft === "0") {
+  if (daysLeft === "0" || daysLeft === "-1") {
     display = daysText;
   } else if (daysLeft > 0) {
     display = `${daysLeft} ${daysText}`;
-  } else if (daysLeft < 0) {
+  } else if (daysLeft < -1) {
     display = `${Math.abs(daysLeft)} ${daysText}`;
   }
 
   return (
-    <View style={[styles.container, props.style]}>
+    <View
+      style={[styles.container, props.style, isLastItem && styles.lastChild]}
+    >
       <Pressable
         android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
         style={styles.innerContainer}
@@ -42,14 +50,21 @@ function ActivityItem(props) {
       >
         <View style={styles.leftSide}>
           <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.description}>{props.description}</Text>
+          {/* <Text style={styles.description}>{props.description}</Text> */}
         </View>
         <View style={styles.rightSide}>
           <Text style={styles.displayTitle}>
             {daysLeft < 0 ? "Zakończono" : "Pozostało"}
           </Text>
           <View style={styles.daysContainer}>
-            <Text style={styles.displayText}>{display}</Text>
+            <Text
+              style={[
+                styles.displayText,
+                daysLeft < 0 ? styles.displayOldText : null,
+              ]}
+            >
+              {display}
+            </Text>
           </View>
         </View>
       </Pressable>
@@ -62,33 +77,46 @@ export default ActivityItem;
 const styles = StyleSheet.create({
   container: {
     marginVertical: 4,
-    backgroundColor: GlobalStyles.colors.contentBg200,
+    backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
+    marginHorizontal: 8,
+    elevation: GlobalStyles.border.elevation,
   },
   innerContainer: {
     flexDirection: "row",
     padding: 8,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+    // marginBottom: 8,
   },
-  description: {},
+  // withDescriptionTitle: {},
+  // description: {},
   leftSide: {
     flex: 1,
+    justifyContent: "center",
   },
   rightSide: {
     alignItems: "flex-end",
+    justifyContent: "flex-end",
   },
   displayText: {
-    fontSize: 24,
+    fontSize: 12,
     fontWeight: "bold",
-    color: GlobalStyles.colors.contentBg800,
+    color: GlobalStyles.colors.primary700,
   },
-  displayTitle: {},
+  displayOldText: {
+    color: GlobalStyles.colors.wrong700,
+  },
+  displayTitle: {
+    fontSize: 12,
+  },
   daysContainer: {
     flexDirection: "row",
+  },
+  lastChild: {
+    marginBottom: 12,
   },
 });

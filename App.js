@@ -30,10 +30,15 @@ export default function App() {
               headerStyle: { backgroundColor: GlobalStyles.colors.headerBg },
               headerTintColor: GlobalStyles.colors.headerText,
               headerTitleAlign: "center",
-              headerTitleStyle: { fontSize: 26 },
             }}
           >
-            <Stack.Screen name="Activities" component={ActivitiesScreen} />
+            <Stack.Screen
+              name="Activities"
+              component={ActivitiesScreen}
+              options={{
+                headerTitle: "Moje aktywności",
+              }}
+            />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen
               name="ActivityDetailsScreen"

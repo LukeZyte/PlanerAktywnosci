@@ -12,43 +12,23 @@ function ActivitiesContextProvider(props) {
   const initialTest = [
     {
       id: "t1",
-      title: "Title of Test",
-      description: "haha here is a dumb desc",
-      date: "2022-09-02",
-    },
-    {
-      id: "t2",
-      title: "Title of Test2",
-      description: "a dumb desc",
-      date: "2022-09-01",
-    },
-    {
-      id: "t3",
-      title: "Title of Test3",
-      description: "haha",
-      date: "2022-09-03",
-    },
-    {
-      id: "t4",
-      title: "Title of Test4",
-      description: "haha",
-      date: "2022-08-29",
+      title: "Kolokwium z AMIAL",
+      description: `Nauczyc sie trzeba:
+    całek
+    macierzy
+    innych trudnych rzeczy
+    Notatki sa w zeszycie i mozna korzysatc z kalkulatora!`,
+      date: new Date(),
     },
   ];
 
   const [activities, setActivities] = useState(initialTest);
 
-  function addActivity() {
+  function addActivity(newActivity) {
     setActivities((prevState) =>
-      [
-        {
-          id: "t5",
-          title: "Added newly Test",
-          description: "dumb desc",
-          date: "2022-09-01",
-        },
-        ...prevState,
-      ].sort((a, b) => new Date(a.date) - new Date(b.date))
+      [newActivity, ...prevState].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      )
     );
   }
   function deleteActivity(id) {

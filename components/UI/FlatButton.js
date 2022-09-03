@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-function Button(props) {
+function FlatButton(props) {
   return (
-    <View style={[styles.buttonContainer, props.style]}>
+    <View style={[styles.container, props.style]}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: GlobalStyles.colors.primary700 }}
+        android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
       >
         <Text style={styles.text}>{props.children}</Text>
       </Pressable>
@@ -14,21 +14,19 @@ function Button(props) {
   );
 }
 
-export default Button;
+export default FlatButton;
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    backgroundColor: GlobalStyles.colors.primary500,
-    elevation: GlobalStyles.border.elevation,
+  container: {
     overflow: "hidden",
+    borderRadius: GlobalStyles.border.radius,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: GlobalStyles.border.radius,
   },
   text: {
     fontSize: 16,
-    fontWeight: "bold",
     paddingHorizontal: 32,
     paddingVertical: 8,
+    fontWeight: "bold",
   },
 });

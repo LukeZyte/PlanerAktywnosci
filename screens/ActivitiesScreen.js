@@ -1,10 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import ActivitiesList from "../components/Activities/ActivitiesList";
 import Button from "../components/UI/Button";
 import { Ionicons } from "@expo/vector-icons";
 import { ActivitiesContext } from "../store/activitiesContext";
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
+import CircleButton from "../components/UI/CircleButton";
 
 function ActivitiesScreen() {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -16,12 +17,13 @@ function ActivitiesScreen() {
         <ActivitiesList />
       </View>
       <View style={styles.buttons}>
-        <Button
-          type="circle"
+        <CircleButton
           onPress={() => navigation.navigate("ActivityDetailsScreen")}
         >
-          <Ionicons name="add" size={42} />
-        </Button>
+          <Text style={styles.circleText}>
+            <Ionicons name="add" size={42} />
+          </Text>
+        </CircleButton>
       </View>
     </>
   );
@@ -40,5 +42,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingBottom: 24,
     paddingRight: 24,
+  },
+  circleText: {
+    width: 80,
+    height: 80,
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });
