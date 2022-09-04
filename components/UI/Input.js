@@ -14,6 +14,7 @@ function Input(props) {
         value={props.value}
         onChangeText={props.onChangeText}
         multiline={props.multiline}
+        numberOfLines={props.numberOfLines}
         blurOnSubmit={props.blurOnSubmit}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
@@ -26,31 +27,21 @@ export default Input;
 
 const styles = StyleSheet.create({
   container: {},
-  innerContainer: {
-    // padding: 3,
-    // backgroundColor: GlobalStyles.colors.primary500,
-    // borderWidth: 3,
-    // borderColor: "rgba(0, 0, 0, 0)",
-    // borderBottomColor: ,
-  },
   input: {
     backgroundColor: GlobalStyles.colors.contentBg200,
     borderRadius: GlobalStyles.border.radius,
-    outlineColor: "#523009",
-    outlineStyle: "solid",
-    outlineWidth: 4,
-    // borderWidth: 3,
-    // borderRightWidth: 3,
-    // borderLeftWidth: 3,
-    // borderBottomWidth: 3,
-    // borderBottomColor: GlobalStyles.colors.primary500,
+    borderWidth: 0.1,
+    borderBottomWidth: 3,
+    borderBottomColor: GlobalStyles.colors.primary500,
     borderColor: GlobalStyles.colors.contentBg200,
     paddingHorizontal: 8,
     paddingVertical: 12,
     fontSize: 16,
   },
   focusInput: {
+    // borderWidth: 1,
     backgroundColor: GlobalStyles.colors.bgPrimary200,
+    borderColor: GlobalStyles.colors.primary500,
   },
   label: {
     fontSize: 16,

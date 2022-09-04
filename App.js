@@ -8,6 +8,7 @@ import ActivitiesScreen from "./screens/ActivitiesScreen";
 import ActivityDetailsScreen from "./screens/ActivityDetailsScreen";
 import ActivitiesContextProvider from "./store/activitiesContext";
 import { GlobalStyles } from "./constants/styles";
+import AddActivityScreen from "./screens/AddActivityScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,16 +34,20 @@ export default function App() {
             }}
           >
             <Stack.Screen
-              name="Activities"
+              name="ActivitiesScreen"
               component={ActivitiesScreen}
               options={{
                 headerTitle: "Moje aktywności",
               }}
             />
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen
               name="ActivityDetailsScreen"
               component={ActivityDetailsScreen}
+            />
+            <Stack.Screen
+              name="AddActivityScreen"
+              component={AddActivityScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>

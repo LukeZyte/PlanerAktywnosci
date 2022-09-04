@@ -6,7 +6,7 @@ function Button(props) {
     <View style={[styles.buttonContainer, props.style]}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: GlobalStyles.colors.primary700 }}
+        android_ripple={{ color: GlobalStyles.colors.primary900 }}
       >
         <Text style={styles.text}>{props.children}</Text>
       </Pressable>
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     paddingHorizontal: 32,
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
 });

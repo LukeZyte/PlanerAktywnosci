@@ -76,24 +76,25 @@ export default ActivityItem;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 4,
+    marginVertical: 1,
     backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
-    marginHorizontal: 8,
-    elevation: GlobalStyles.border.elevation,
+    // marginHorizontal: 8,
+    // borderTopWidth: 1,
+    // borderBottomWidth: 1,
+    // borderColor: "#ccc",
+    // elevation: GlobalStyles.border.elevation,
   },
   innerContainer: {
     flexDirection: "row",
+    paddingVertical: 24,
     padding: 8,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    // marginBottom: 8,
   },
-  // withDescriptionTitle: {},
-  // description: {},
   leftSide: {
     flex: 1,
     justifyContent: "center",

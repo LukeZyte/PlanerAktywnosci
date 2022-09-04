@@ -3,9 +3,9 @@ import { Alert } from "react-native";
 
 export const ActivitiesContext = createContext({
   activities: [],
-  addActivity: () => {},
-  deleteActivity: () => {},
-  updateActivity: () => {},
+  addActivity: (newActivity) => {},
+  deleteActivity: (id) => {},
+  updateActivity: (id, updateActivity) => {},
 });
 
 function ActivitiesContextProvider(props) {
@@ -19,6 +19,30 @@ function ActivitiesContextProvider(props) {
     innych trudnych rzeczy
     Notatki sa w zeszycie i mozna korzysatc z kalkulatora!`,
       date: new Date(),
+    },
+    {
+      id: "t2",
+      title: "POMOC TACIE W OGRODZIE",
+      description: `Łukasz debilu nie zapomnij se popracowac fizycznie troche`,
+      date: new Date("2022-12-01"),
+    },
+    {
+      id: "t3",
+      title: "Egzamin z fizyki",
+      description: `Bardzo trudny egzamin z Jerzym Bodzenta`,
+      date: new Date("2022-09-01"),
+    },
+    {
+      id: "t4",
+      title: "Progress na ławeczce",
+      description: `Wycisnąć albo więcej\nalbo więcej powtórzeń`,
+      date: new Date("2022-09-03"),
+    },
+    {
+      id: "t5",
+      title: "Porobic trening cardio jakis",
+      description: "",
+      date: new Date("2022-09-05"),
     },
   ];
 

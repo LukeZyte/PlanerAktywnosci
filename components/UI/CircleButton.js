@@ -6,7 +6,7 @@ function CircleButton(props) {
     <View style={[styles.circleContainer, props.style]}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: GlobalStyles.colors.primary700 }}
+        android_ripple={{ color: GlobalStyles.colors.primary900 }}
       >
         <Text style={styles.text}>{props.children}</Text>
       </Pressable>
