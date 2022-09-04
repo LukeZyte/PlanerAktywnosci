@@ -80,18 +80,13 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
-    // marginHorizontal: 8,
-    // borderTopWidth: 1,
-    // borderBottomWidth: 1,
-    // borderColor: "#ccc",
-    // elevation: GlobalStyles.border.elevation,
   },
   innerContainer: {
     flexDirection: "row",
-    paddingVertical: 24,
     padding: 8,
   },
   title: {
+    paddingVertical: 16,
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -102,6 +97,7 @@ const styles = StyleSheet.create({
   rightSide: {
     alignItems: "flex-end",
     justifyContent: "flex-end",
+    paddingLeft: 4,
   },
   displayText: {
     fontSize: 12,

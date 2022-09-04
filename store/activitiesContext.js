@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ActivitiesContext = createContext({
   activities: [],
@@ -9,44 +10,67 @@ export const ActivitiesContext = createContext({
 });
 
 function ActivitiesContextProvider(props) {
-  const initialTest = [
-    {
-      id: "t1",
-      title: "Kolokwium z AMIAL",
-      description: `Nauczyc sie trzeba:
-    całek
-    macierzy
-    innych trudnych rzeczy
-    Notatki sa w zeszycie i mozna korzysatc z kalkulatora!`,
-      date: new Date(),
-    },
-    {
-      id: "t2",
-      title: "POMOC TACIE W OGRODZIE",
-      description: `Łukasz debilu nie zapomnij se popracowac fizycznie troche`,
-      date: new Date("2022-12-01"),
-    },
-    {
-      id: "t3",
-      title: "Egzamin z fizyki",
-      description: `Bardzo trudny egzamin z Jerzym Bodzenta`,
-      date: new Date("2022-09-01"),
-    },
-    {
-      id: "t4",
-      title: "Progress na ławeczce",
-      description: `Wycisnąć albo więcej\nalbo więcej powtórzeń`,
-      date: new Date("2022-09-03"),
-    },
-    {
-      id: "t5",
-      title: "Porobic trening cardio jakis",
-      description: "",
-      date: new Date("2022-09-05"),
-    },
-  ];
+  // const initialTest = [
+  //   {
+  //     id: "t1",
+  //     title: "Kolokwium z AMIAL",
+  //     description: `Nauczyc sie trzeba:
+  //   całek
+  //   macierzy
+  //   innych trudnych rzeczy
+  //   Notatki sa w zeszycie i mozna korzysatc z kalkulatora!`,
+  //     date: new Date(),
+  //   },
+  //   {
+  //     id: "t2",
+  //     title: "POMOC TACIE W OGRODZIE",
+  //     description: `Łukasz debilu nie zapomnij se popracowac fizycznie troche`,
+  //     date: new Date("2022-12-01"),
+  //   },
+  //   {
+  //     id: "t3",
+  //     title: "Egzamin z fizyki",
+  //     description: `Bardzo trudny egzamin z Jerzym Bodzenta`,
+  //     date: new Date("2022-09-01"),
+  //   },
+  //   {
+  //     id: "t4",
+  //     title: "Progress na ławeczce",
+  //     description: `Wycisnąć albo więcej\nalbo więcej powtórzeń`,
+  //     date: new Date("2022-09-03"),
+  //   },
+  //   {
+  //     id: "t5",
+  //     title: "Porobic trening cardio jakis",
+  //     description: "",
+  //     date: new Date("2022-09-05"),
+  //   },
+  // ];
 
-  const [activities, setActivities] = useState(initialTest);
+  //AsyncStorage
+  const getActivitiesFromStore = async () => {
+    try {
+      const result = await AsyncStorage.getItem("@activitiesKey");
+      if (result !== null) {
+        setActivities(JSON.parse(result));
+      }
+    } catch (error) {
+      Alert.alert(error);
+    }
+  };
+  const setActivitiesStore = async (data) => {
+    try {
+      await AsyncStorage.setItem("@activitiesKey", JSON.stringify(data));
+    } catch (error) {
+      Alert.alert(error);
+    }
+  };
+
+  useEffect(() => {
+    getActivitiesFromStore();
+  }, []);
+  //
+  const [activities, setActivities] = useState([]);
 
   function addActivity(newActivity) {
     setActivities((prevState) =>
@@ -54,12 +78,21 @@ function ActivitiesContextProvider(props) {
         (a, b) => new Date(a.date) - new Date(b.date)
       )
     );
+
+    // AsyncStorage
+    const data = [newActivity, ...activities].sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
+    setActivitiesStore(data);
   }
   function deleteActivity(id) {
     const changedActivities = activities.filter(
       (activity) => activity.id !== id
     );
     setActivities(changedActivities);
+
+    // AsyncStorage
+    setActivitiesStore(changedActivities);
   }
   function updateActivity(id, updatedActivity) {
     const currentActivities = [...activities];
@@ -69,9 +102,13 @@ function ActivitiesContextProvider(props) {
       ...updatedActivity,
     };
     currentActivities[selectedIndex] = updatedItem;
-    setActivities(
-      currentActivities.sort((a, b) => new Date(a.date) - new Date(b.date))
+    const sortedResult = currentActivities.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
     );
+    setActivities(sortedResult);
+
+    // AsyncStorage
+    setActivitiesStore(sortedResult);
   }
 
   const value = {
