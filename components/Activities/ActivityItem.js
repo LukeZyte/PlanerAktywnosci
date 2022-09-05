@@ -77,9 +77,11 @@ export default ActivityItem;
 const styles = StyleSheet.create({
   container: {
     marginVertical: 1,
+    marginHorizontal: 2,
     backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
+    elevation: GlobalStyles.border.elevation,
   },
   innerContainer: {
     flexDirection: "row",

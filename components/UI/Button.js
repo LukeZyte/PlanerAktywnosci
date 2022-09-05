@@ -19,7 +19,7 @@ export default Button;
 const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: GlobalStyles.colors.primary500,
-    elevation: GlobalStyles.border.elevation,
+    elevation: GlobalStyles.border.elevationBig,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",

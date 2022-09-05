@@ -7,6 +7,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { getFormattedDate } from "../scripts/dates";
 import FlatButton from "../components/UI/FlatButton";
 import { MaterialIcons } from "@expo/vector-icons";
+import Card from "../components/UI/Card";
+import MenuLabel from "../components/UI/MenuLabel";
 
 function ActivityDetailsScreen(props) {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -65,8 +67,8 @@ function ActivityDetailsScreen(props) {
                 </View>
               </FlatButton>
             </View>
-            <View style={styles.card}>
-              <Text style={styles.label}>Opis</Text>
+            <Card style={styles.cardStyle}>
+              <MenuLabel>Opis</MenuLabel>
               <Text
                 style={[
                   styles.description,
@@ -77,9 +79,9 @@ function ActivityDetailsScreen(props) {
                   ? activity.description
                   : "Brak dostępnego opisu"}
               </Text>
-            </View>
-            <View style={styles.card}>
-              <Text style={styles.label}>Szczegóły</Text>
+            </Card>
+            <Card style={styles.cardStyle}>
+              <MenuLabel>Szczegóły</MenuLabel>
               <View style={styles.detailsContainer}>
                 <View style={styles.iconText}>
                   <Ionicons name="calendar" size={20} color="black" />
@@ -94,7 +96,7 @@ function ActivityDetailsScreen(props) {
                   {getFormattedDate(new Date(activity.date))}
                 </Text>
               </View>
-            </View>
+            </Card>
           </View>
         </ScrollView>
       </View>
@@ -120,6 +122,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginHorizontal: 8,
   },
+  cardStyle: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
   actionButtons: {
     marginBottom: 0,
   },
@@ -138,19 +144,13 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.wrong500,
   },
   card: {
-    marginHorizontal: 8,
+    marginHorizontal: 2,
     marginVertical: 4,
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     elevation: GlobalStyles.border.elevation,
-  },
-  label: {
-    fontWeight: "bold",
-    // fontSize: 16,
-    color: GlobalStyles.colors.primary700,
-    marginBottom: 12,
   },
   description: {
     fontSize: 16,

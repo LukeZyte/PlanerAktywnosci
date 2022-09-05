@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CircleButton from "../components/UI/CircleButton";
 import EmptyListMessage from "../components/Activities/EmptyListMessage";
+import { GlobalStyles } from "../constants/styles";
 
 function ActivitiesScreen() {
   const activitiesCtx = useContext(ActivitiesContext);

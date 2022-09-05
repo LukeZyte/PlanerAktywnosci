@@ -63,7 +63,7 @@ function ActivitiesList() {
       )}
       <View style={styles.flatButton}>
         <FlatIconButton
-          style={{ overflow: "hidden" }}
+          style={{ height: 46, overflow: "hidden" }}
           onPress={() => setHideOld((prevState) => !prevState)}
         >
           <View style={styles.flatButtonInner}>
@@ -93,7 +93,7 @@ export default ActivitiesList;
 
 const styles = StyleSheet.create({
   listContainer: {
-    marginHorizontal: 4,
+    marginHorizontal: 0,
     marginVertical: 8,
   },
   flatButton: {

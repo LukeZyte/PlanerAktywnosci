@@ -19,7 +19,7 @@ export default CircleButton;
 const styles = StyleSheet.create({
   circleContainer: {
     backgroundColor: GlobalStyles.colors.primary500,
-    elevation: GlobalStyles.border.elevation,
+    elevation: GlobalStyles.border.elevationBig,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",

@@ -7,6 +7,7 @@ function FlatIconButton(props) {
       <Pressable
         onPress={props.onPress}
         android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
+        style={{ flex: 1 }}
       >
         {props.children}
       </Pressable>

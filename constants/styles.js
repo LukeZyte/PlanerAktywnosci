@@ -23,6 +23,7 @@ export const GlobalStyles = {
   },
   border: {
     radius: 8,
-    elevation: 8,
+    elevation: 1,
+    elevationBig: 8,
   },
 };
