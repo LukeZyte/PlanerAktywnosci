@@ -4,18 +4,19 @@ import OutsideView from "react-native-detect-press-outside";
 import Card from "./Card";
 
 function ModalWindow(props) {
-  const [modalVisible, setModalVisible] = useState(true);
-
   const childRef = useRef();
 
   return (
-    <Modal transparent={true} visible={modalVisible}>
+    <Modal
+      transparent={true}
+      visible={props.onModalVisible}
+      animationType={"fade"}
+    >
       <View style={styles.rootContainer}>
         <OutsideView
           childRef={childRef}
           onPressOutside={() => {
-            // handle press outside of childRef event
-            setModalVisible(false);
+            props.onSetModalVisible(false);
           }}
           style={styles.rootContainer}
         >

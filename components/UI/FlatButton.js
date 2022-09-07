@@ -8,7 +8,7 @@ function FlatButton(props) {
         onPress={props.onPress}
         android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
       >
-        <Text style={styles.text}>{props.children}</Text>
+        <Text style={[styles.text, props.textStyle]}>{props.children}</Text>
       </Pressable>
     </View>
   );

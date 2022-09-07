@@ -9,6 +9,7 @@ import ActivityDetailsScreen from "./screens/ActivityDetailsScreen";
 import ActivitiesContextProvider from "./store/activitiesContext";
 import { GlobalStyles } from "./constants/styles";
 import AddActivityScreen from "./screens/AddActivityScreen";
+import ActCategoriesContextProvider from "./store/activityCategoriesContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,34 +25,36 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <ActivitiesContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: { backgroundColor: GlobalStyles.colors.headerBg },
-              headerTintColor: GlobalStyles.colors.headerText,
-              headerTitleAlign: "center",
-            }}
-          >
-            <Stack.Screen
-              name="ActivitiesScreen"
-              component={ActivitiesScreen}
-              options={{
-                headerTitle: "Moje aktywności",
+      <ActCategoriesContextProvider>
+        <ActivitiesContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerStyle: { backgroundColor: GlobalStyles.colors.headerBg },
+                headerTintColor: GlobalStyles.colors.headerText,
+                headerTitleAlign: "center",
               }}
-            />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen
-              name="ActivityDetailsScreen"
-              component={ActivityDetailsScreen}
-            />
-            <Stack.Screen
-              name="AddActivityScreen"
-              component={AddActivityScreen}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ActivitiesContextProvider>
+            >
+              <Stack.Screen
+                name="ActivitiesScreen"
+                component={ActivitiesScreen}
+                options={{
+                  headerTitle: "Moje aktywności",
+                }}
+              />
+              <Stack.Screen name="HomeScreen" component={HomeScreen} />
+              <Stack.Screen
+                name="ActivityDetailsScreen"
+                component={ActivityDetailsScreen}
+              />
+              <Stack.Screen
+                name="AddActivityScreen"
+                component={AddActivityScreen}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ActivitiesContextProvider>
+      </ActCategoriesContextProvider>
     </>
   );
 }

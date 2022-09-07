@@ -21,6 +21,7 @@ import FlatIconButton from "../UI/FlatIconButton";
 import Card from "../UI/Card";
 import MenuLabel from "../UI/MenuLabel";
 import CategoriesModal from "../CategoriesModal";
+import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
 
 function AddActivity(props) {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -97,13 +98,14 @@ function AddActivity(props) {
               },
             },
             {
-              text: "Dodaj",
+              text: "Potwierdź",
               onPress: () => {
                 activitiesCtx.addActivity({
                   id: Math.random(),
                   title: enteredTitle.value,
                   description: enteredDesc.value,
                   date: date.value,
+                  typeId: selectedCategoryId,
                 });
                 navigation.navigate("ActivitiesScreen");
               },
@@ -117,13 +119,14 @@ function AddActivity(props) {
         title: enteredTitle.value,
         description: enteredDesc.value,
         date: date.value,
+        typeId: selectedCategoryId,
       });
       navigation.navigate("ActivitiesScreen");
     } else if (formOK && isEditing) {
       if (oldDate) {
         Alert.alert(
           "Zaczekaj!",
-          "Wybrano datę z przeszłości dla terminu aktyności. Czy chcesz ją dodać mimo to?",
+          "Wybrano datę z przeszłości dla terminu aktyności. Aby na pewno chcesz potwierdzić?",
           [
             {
               text: "Cofnij",
@@ -133,13 +136,14 @@ function AddActivity(props) {
               },
             },
             {
-              text: "Dodaj",
+              text: "Zatwierdź",
               onPress: () => {
                 activitiesCtx.updateActivity(selectedActivityId, {
                   id: activity.id,
                   title: enteredTitle.value,
                   description: enteredDesc.value,
                   date: date.value,
+                  typeId: selectedCategoryId,
                 });
                 navigation.navigate("ActivitiesScreen");
               },
@@ -153,12 +157,25 @@ function AddActivity(props) {
         title: enteredTitle.value,
         description: enteredDesc.value,
         date: date.value,
+        typeId: selectedCategoryId,
       });
       navigation.navigate("ActivitiesScreen");
     }
   }
 
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  let initialCategory = "none";
+  if (isEditing) {
+    initialCategory = activity.typeId;
+  }
+
+  const [categoriesModalVisibility, setCategoriesModalVisibility] =
+    useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategory);
+
+  const actCategoriesCtx = useContext(ActivityCategoriesContext);
+  const selectedCategory = actCategoriesCtx.actCategories.find(
+    (item) => item.id === selectedCategoryId
+  );
 
   return (
     <View style={styles.container}>
@@ -199,7 +216,7 @@ function AddActivity(props) {
             <View style={{ flexDirection: "row" }}>
               <Ionicons name="calendar" size={20} color="black" />
               <Text style={styles.calendarButtonText}>
-                {!date.choosen ? "Wybierz datę" : "Zmień datę"}
+                {!date.choosen ? "Wybierz termin" : "Zmień termin"}
               </Text>
             </View>
             <View style={styles.dateTextContainer}>
@@ -217,7 +234,7 @@ function AddActivity(props) {
                     dateNotChoosen && styles.dateMessageTextInvalid,
                   ]}
                 >
-                  Nie wprowadzono daty
+                  Nie wprowadzono terminu
                 </Text>
               )}
             </View>
@@ -230,7 +247,7 @@ function AddActivity(props) {
           />
         </FlatIconButton>
         <FlatIconButton
-          onPress={() => setDatePickerVisibility(true)}
+          onPress={() => setCategoriesModalVisibility(true)}
           style={{
             flexDirection: "row",
           }}
@@ -243,10 +260,16 @@ function AddActivity(props) {
               </Text>
             </View>
             <View style={styles.dateTextContainer}>
-              <Text style={styles.dateMessageText}>Brak</Text>
+              <Text style={styles.categoryMessageText}>
+                {selectedCategory ? selectedCategory.name : "Brak"}
+              </Text>
             </View>
           </View>
-          <CategoriesModal />
+          <CategoriesModal
+            onSetModalVisibility={setCategoriesModalVisibility}
+            onModalVisibility={categoriesModalVisibility}
+            onSetSelectedCategoryId={setSelectedCategoryId}
+          />
         </FlatIconButton>
       </Card>
       <View style={styles.buttons}>
@@ -324,6 +347,11 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     // fontWeightr: "bold",
     marginLeft: 12,
+  },
+  categoryMessageText: {
+    color: GlobalStyles.colors.primary700,
+    fontSize: 16,
+    fontWeight: "bold",
   },
   buttons: {
     marginVertical: 24,

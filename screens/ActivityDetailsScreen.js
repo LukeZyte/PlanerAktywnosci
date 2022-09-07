@@ -9,9 +9,11 @@ import FlatButton from "../components/UI/FlatButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import Card from "../components/UI/Card";
 import MenuLabel from "../components/UI/MenuLabel";
+import { ActivityCategoriesContext } from "../store/activityCategoriesContext";
 
 function ActivityDetailsScreen(props) {
   const activitiesCtx = useContext(ActivitiesContext);
+  const actCategoriesCtx = useContext(ActivityCategoriesContext);
   const selectedActivityId = props.route.params?.activityId;
   const navigation = useNavigation();
 
@@ -28,6 +30,10 @@ function ActivityDetailsScreen(props) {
   let today = new Date();
   let activityDate = new Date(activity.date);
   let oldDate = today.getTime() > activityDate.getTime() + 1000 * 3600 * 24;
+
+  const category = actCategoriesCtx.actCategories.find(
+    (item) => item.id === activity.typeId
+  );
 
   function deleteHandler() {
     activitiesCtx.deleteActivity(activity.id);
@@ -96,6 +102,14 @@ function ActivityDetailsScreen(props) {
                   {getFormattedDate(new Date(activity.date))}
                 </Text>
               </View>
+
+              <View style={styles.detailsContainer}>
+                <View style={styles.iconText}>
+                  <Ionicons name="cube" size={20} color="black" />
+                  <Text style={styles.detailsText}>Kategoria:</Text>
+                </View>
+                <Text style={styles.detailsElement}>{category.name}</Text>
+              </View>
             </Card>
           </View>
         </ScrollView>
@@ -162,6 +176,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingVertical: 10,
   },
   iconText: {
     flexDirection: "row",

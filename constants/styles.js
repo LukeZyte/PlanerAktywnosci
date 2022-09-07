@@ -1,14 +1,16 @@
 export const GlobalStyles = {
   colors: {
     primary300: "#0f5",
-    primary500: "#0d7",
+    primary500: "#00e676",
     primary700: "#0b7",
     primary900: "#097",
 
     bgPrimary200: "#c3e0d3",
 
-    headerBg: "#222",
+    headerBg: "#00b248",
     headerText: "white",
+
+    text: "black",
 
     contentBg: "#fff",
     contentBg100: "#eee",

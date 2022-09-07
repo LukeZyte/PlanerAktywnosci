@@ -34,7 +34,7 @@ function ActivitiesList() {
   let oldActivitiesList = (
     <View style={styles.listContainer}>
       <FlatList
-        keyExtractor={(item, index) => {
+        keyExtractor={(item) => {
           return item.id;
         }}
         data={oldActivities}
