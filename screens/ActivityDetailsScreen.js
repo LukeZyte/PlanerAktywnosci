@@ -10,6 +10,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Card from "../components/UI/Card";
 import MenuLabel from "../components/UI/MenuLabel";
 import { ActivityCategoriesContext } from "../store/activityCategoriesContext";
+import TextUI from "../components/UI/TextUI";
+import { ThemeContext } from "../store/themeContext";
 
 function ActivityDetailsScreen(props) {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -21,7 +23,7 @@ function ActivityDetailsScreen(props) {
     navigation.setOptions({
       title: "Szczegóły aktywności",
     });
-  }, [navigation, selectedActivityId]);
+  }, [navigation]);
 
   const activity = activitiesCtx.activities.find(
     (item) => item.id === selectedActivityId
@@ -45,21 +47,28 @@ function ActivityDetailsScreen(props) {
     });
   }
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <>
       <View style={styles.container}>
         <ScrollView>
           <View style={{ paddingVertical: 12 }}>
-            <Text style={styles.title}>{activity.title}</Text>
+            <TextUI style={styles.title}>{activity.title}</TextUI>
             <View style={styles.buttons}>
               <FlatButton style={styles.actionButtons} onPress={deleteHandler}>
                 <View style={styles.actionInnerButtons}>
                   <MaterialIcons
                     name="delete"
                     size={20}
-                    color={GlobalStyles.colors.wrong500}
+                    color={color.wrong500}
                   />
-                  <Text style={styles.deleteText}>Usuń</Text>
+                  <TextUI
+                    style={[styles.deleteText, { color: color.wrong500 }]}
+                  >
+                    Usuń
+                  </TextUI>
                 </View>
               </FlatButton>
               <FlatButton style={styles.actionButtons} onPress={editHandler}>
@@ -69,13 +78,13 @@ function ActivityDetailsScreen(props) {
                     size={20}
                     color={GlobalStyles.colors.primary700}
                   />
-                  <Text style={styles.editText}>Edytuj aktywność</Text>
+                  <TextUI style={styles.editText}>Edytuj aktywność</TextUI>
                 </View>
               </FlatButton>
             </View>
             <Card style={styles.cardStyle}>
               <MenuLabel>Opis</MenuLabel>
-              <Text
+              <TextUI
                 style={[
                   styles.description,
                   !activity.description && styles.noDescription,
@@ -84,31 +93,31 @@ function ActivityDetailsScreen(props) {
                 {activity.description
                   ? activity.description
                   : "Brak dostępnego opisu"}
-              </Text>
+              </TextUI>
             </Card>
             <Card style={styles.cardStyle}>
               <MenuLabel>Szczegóły</MenuLabel>
               <View style={styles.detailsContainer}>
                 <View style={styles.iconText}>
-                  <Ionicons name="calendar" size={20} color="black" />
-                  <Text style={styles.detailsText}>Termin:</Text>
+                  <Ionicons name="calendar" size={20} color={color.text} />
+                  <TextUI style={styles.detailsText}>Termin:</TextUI>
                 </View>
-                <Text
+                <TextUI
                   style={[
                     styles.detailsElement,
-                    oldDate && styles.detailsWarningElement,
+                    oldDate && { color: color.wrong500 },
                   ]}
                 >
                   {getFormattedDate(new Date(activity.date))}
-                </Text>
+                </TextUI>
               </View>
 
               <View style={styles.detailsContainer}>
                 <View style={styles.iconText}>
-                  <Ionicons name="cube" size={20} color="black" />
-                  <Text style={styles.detailsText}>Kategoria:</Text>
+                  <Ionicons name="cube" size={20} color={color.text} />
+                  <TextUI style={styles.detailsText}>Kategoria:</TextUI>
                 </View>
-                <Text style={styles.detailsElement}>{category.name}</Text>
+                <TextUI style={styles.detailsElement}>{category.name}</TextUI>
               </View>
             </Card>
           </View>
@@ -155,14 +164,13 @@ const styles = StyleSheet.create({
   deleteText: {
     marginLeft: 8,
     fontWeight: "bold",
-    color: GlobalStyles.colors.wrong500,
   },
   card: {
     marginHorizontal: 2,
     marginVertical: 4,
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: GlobalStyles.colors.contentBg,
+    backgroundColor: GlobalStyles.colors.background,
     borderRadius: GlobalStyles.border.radius,
     elevation: GlobalStyles.border.elevation,
   },
@@ -190,8 +198,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: GlobalStyles.colors.primary700,
     fontWeight: "bold",
-  },
-  detailsWarningElement: {
-    color: GlobalStyles.colors.wrong500,
   },
 });

@@ -20,8 +20,10 @@ import { getFormattedDate } from "../../scripts/dates";
 import FlatIconButton from "../UI/FlatIconButton";
 import Card from "../UI/Card";
 import MenuLabel from "../UI/MenuLabel";
-import CategoriesModal from "../CategoriesModal";
+import CategoriesModal from "../Cateories/CategoriesModal";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
+import TextUI from "../UI/TextUI";
+import { ThemeContext } from "../../store/themeContext";
 
 function AddActivity(props) {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -177,11 +179,20 @@ function AddActivity(props) {
     (item) => item.id === selectedCategoryId
   );
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
         <Input
-          style={!enteredTitle.isValid && styles.invalidTitle}
+          style={
+            !enteredTitle.isValid && {
+              backgroundColor: color.wrong200,
+              borderWidth: 1,
+              borderColor: color.wrong500,
+            }
+          }
           label="Tytuł"
           placeholder="Nowa aktywność"
           value={enteredTitle.value}
@@ -214,28 +225,31 @@ function AddActivity(props) {
         >
           <View style={styles.sectionContainer}>
             <View style={{ flexDirection: "row" }}>
-              <Ionicons name="calendar" size={20} color="black" />
-              <Text style={styles.calendarButtonText}>
+              <Ionicons name="calendar" size={20} color={color.text} />
+              <TextUI style={styles.calendarButtonText}>
                 {!date.choosen ? "Wybierz termin" : "Zmień termin"}
-              </Text>
+              </TextUI>
             </View>
             <View style={styles.dateTextContainer}>
               {date.choosen && (
-                <Text
+                <TextUI
                   style={[styles.dateText, oldDate ? styles.oldDateText : null]}
                 >
                   {dateText}
-                </Text>
+                </TextUI>
               )}
               {!date.choosen && (
-                <Text
+                <TextUI
                   style={[
                     styles.dateMessageText,
-                    dateNotChoosen && styles.dateMessageTextInvalid,
+                    dateNotChoosen && {
+                      color: color.wrong500,
+                      fontWeight: "bold",
+                    },
                   ]}
                 >
                   Nie wprowadzono terminu
-                </Text>
+                </TextUI>
               )}
             </View>
           </View>
@@ -254,15 +268,15 @@ function AddActivity(props) {
         >
           <View style={styles.sectionContainer}>
             <View style={{ flexDirection: "row" }}>
-              <Ionicons name="cube" size={20} color="black" />
-              <Text style={styles.calendarButtonText}>
+              <Ionicons name="cube" size={20} color={color.text} />
+              <TextUI style={styles.calendarButtonText}>
                 {!date.choosen ? "Wybierz Kategorię" : "Zmień kategorię"}
-              </Text>
+              </TextUI>
             </View>
             <View style={styles.dateTextContainer}>
-              <Text style={styles.categoryMessageText}>
+              <TextUI style={styles.categoryMessageText}>
                 {selectedCategory ? selectedCategory.name : "Brak"}
-              </Text>
+              </TextUI>
             </View>
           </View>
           <CategoriesModal
@@ -274,7 +288,7 @@ function AddActivity(props) {
       </Card>
       <View style={styles.buttons}>
         <FlatButton style={styles.cancelButton} onPress={cancelHandler}>
-          <Text>Anuluj</Text>
+          <TextUI>Anuluj</TextUI>
         </FlatButton>
         <Button style={styles.confirmButton} onPress={submitHandler}>
           <Text>{isEditing ? "Zamień" : "Dodaj"}</Text>
@@ -293,11 +307,7 @@ const styles = StyleSheet.create({
   inputsContainer: {
     marginHorizontal: 12,
   },
-  invalidTitle: {
-    backgroundColor: GlobalStyles.colors.wrong200,
-    borderWidth: 1,
-    borderColor: GlobalStyles.colors.wrong500,
-  },
+  invalidTitle: {},
   invalidDesc: {
     backgroundColor: GlobalStyles.colors.wrong200,
     borderWidth: 1,
@@ -337,11 +347,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     // fontWeight: "bold",
   },
-  dateMessageTextInvalid: {
-    color: GlobalStyles.colors.wrong500,
-    // fontSize: 16,
-    fontWeight: "bold",
-  },
+  dateMessageTextInvalid: {},
   calendarButtonText: {
     fontSize: 16,
     textAlignVertical: "center",

@@ -6,6 +6,8 @@ import { GlobalStyles } from "../../constants/styles";
 import FlatButton from "../UI/FlatButton";
 import { Ionicons } from "@expo/vector-icons";
 import FlatIconButton from "../UI/FlatIconButton";
+import TextUI from "../UI/TextUI";
+import { ThemeContext } from "../../store/themeContext";
 
 function ActivitiesList() {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -45,6 +47,9 @@ function ActivitiesList() {
     </View>
   );
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <>
       <View style={styles.listContainer}>
@@ -69,13 +74,13 @@ function ActivitiesList() {
           <View style={styles.flatButtonInner}>
             {hideOld ? (
               <>
-                <Ionicons name="chevron-down" size={20} color="black" />
-                <Text style={styles.buttonText}>Pokaż zakończone</Text>
+                <Ionicons name="chevron-down" size={20} color={color.text} />
+                <TextUI style={styles.buttonText}>Pokaż zakończone</TextUI>
               </>
             ) : (
               <>
-                <Ionicons name="chevron-up" size={20} color="black" />
-                <Text style={styles.buttonText}>Ukryj zakończone</Text>
+                <Ionicons name="chevron-up" size={20} color={color.text} />
+                <TextUI style={styles.buttonText}>Ukryj zakończone</TextUI>
               </>
             )}
           </View>
@@ -83,7 +88,7 @@ function ActivitiesList() {
       </View>
       {!hideOld && oldActivities && oldActivitiesList}
       {!hideOld && oldActivities.length === 0 && (
-        <Text style={styles.message}>Brak zakończonych aktywności</Text>
+        <TextUI style={styles.message}>Brak zakończonych aktywności</TextUI>
       )}
     </>
   );

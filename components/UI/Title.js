@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
+import TextUI from "./TextUI";
 
 function Title({ style, children }) {
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.text}>{children}</Text>
+      <TextUI style={styles.text}>{children}</TextUI>
     </View>
   );
 }

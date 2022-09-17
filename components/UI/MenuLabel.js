@@ -1,8 +1,11 @@
 import { StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import TextUI from "./TextUI";
 
 function MenuLabel(props) {
-  return <Text style={[styles.labelText, props.style]}>{props.children}</Text>;
+  return (
+    <TextUI style={[styles.labelText, props.style]}>{props.children}</TextUI>
+  );
 }
 
 export default MenuLabel;

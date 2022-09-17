@@ -1,14 +1,27 @@
+import { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { ThemeContext } from "../../store/themeContext";
+import TextUI from "../UI/TextUI";
 
 function Button(props) {
+  const themeCtx = useContext(ThemeContext);
+  const darkTheme = themeCtx.darkTheme;
+  const color = themeCtx.currentTheme.colors;
+
   return (
-    <View style={[styles.buttonContainer, props.style]}>
+    <View
+      style={[
+        styles.buttonContainer,
+        { backgroundColor: color.primary },
+        props.style,
+      ]}
+    >
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: GlobalStyles.colors.primary900 }}
+        android_ripple={{ color: color.primary900 }}
       >
-        <Text style={styles.text}>{props.children}</Text>
+        <TextUI style={styles.text}>{props.children}</TextUI>
       </Pressable>
     </View>
   );
@@ -18,7 +31,6 @@ export default Button;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: GlobalStyles.colors.primary500,
     elevation: GlobalStyles.border.elevationBig,
     overflow: "hidden",
     justifyContent: "center",
@@ -26,6 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: GlobalStyles.border.radius,
   },
   text: {
+    color: GlobalStyles.colors.text,
     fontSize: 16,
     fontWeight: "bold",
     paddingHorizontal: 32,

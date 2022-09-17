@@ -1,14 +1,20 @@
+import { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
+import { ThemeContext } from "../../store/themeContext";
+import TextUI from "./TextUI";
 
 function FlatButton(props) {
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <View style={[styles.container, props.style]}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
+        android_ripple={{ color: color.contentBg400 }}
       >
-        <Text style={[styles.text, props.textStyle]}>{props.children}</Text>
+        <TextUI style={[styles.text, props.textStyle]}>{props.children}</TextUI>
       </Pressable>
     </View>
   );
@@ -29,5 +35,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingVertical: 12,
     fontWeight: "bold",
+    color: GlobalStyles.colors.text,
   },
 });

@@ -1,9 +1,12 @@
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import TextUI from "../UI/TextUI";
+import { useContext } from "react";
+import { ThemeContext } from "../../store/themeContext";
 
 function CategoryItem(props) {
   let categoryIcon = <Entypo name="cross" size={24} color={props.color} />;
@@ -37,16 +40,19 @@ function CategoryItem(props) {
     props.onSetSelectedCategoryId(props.id);
   }
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <View style={styles.container}>
       <Pressable
         onPress={categoryPressHandler}
-        android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
+        android_ripple={{ color: color.contentBg400 }}
       >
         <View style={styles.innerContainer}>
           <View style={styles.left}>{categoryIcon}</View>
           <View style={styles.right}>
-            <Text style={styles.categoryText}>{props.name}</Text>
+            <TextUI style={styles.categoryText}>{props.name}</TextUI>
           </View>
         </View>
       </Pressable>

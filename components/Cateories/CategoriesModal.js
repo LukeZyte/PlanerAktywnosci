@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
-import CategoryItem from "../CategoryItem";
+import CategoryItem from "./CategoryItem";
 import Card from "../UI/Card";
 import FlatButton from "../UI/FlatButton";
 import ModalWindow from "../UI/ModalWindow";
+import TextUI from "../UI/TextUI";
 
 function CategoriesModal(props) {
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
@@ -16,7 +17,7 @@ function CategoriesModal(props) {
       onModalVisible={props.onModalVisibility}
     >
       <Card style={styles.card}>
-        <Text style={styles.title}>Wybór kategorii</Text>
+        <TextUI style={styles.title}>Wybór kategorii</TextUI>
         <FlatList
           style={styles.list}
           data={actCategoriesCtx.actCategories}

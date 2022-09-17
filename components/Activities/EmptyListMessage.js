@@ -1,21 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GlobalStyles } from "../../constants/styles";
+import TextUI from "../UI/TextUI";
+import { useContext } from "react";
+import { ThemeContext } from "../../store/themeContext";
 
 function EmptyListMessage() {
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
     <View style={styles.container}>
       <MaterialCommunityIcons
         name="playlist-remove"
         size={128}
-        color={GlobalStyles.colors.contentBg400}
+        color={color.contentBg400}
       />
-      <Text style={styles.messageText}>
+      <TextUI style={[styles.messageText, { color: color.contentBg400 }]}>
         Wygląda na to, że lista jest pusta!
-      </Text>
-      <Text style={styles.messageText}>
+      </TextUI>
+      <TextUI style={[styles.messageText, { color: color.contentBg400 }]}>
         Kliknij w wielki zielony przycisk i dodaj nową aktywność!
-      </Text>
+      </TextUI>
     </View>
   );
 }
@@ -29,7 +35,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   messageText: {
-    color: GlobalStyles.colors.contentBg400,
     textAlign: "center",
     fontSize: 16,
   },

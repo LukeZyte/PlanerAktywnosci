@@ -8,6 +8,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
 import { Entypo } from "@expo/vector-icons";
 import { getFormattedDate } from "../../scripts/dates";
+import TextUI from "../UI/TextUI";
+import { ThemeContext } from "../../store/themeContext";
 
 function ActivityItem(props) {
   const navigation = useNavigation();
@@ -45,7 +47,7 @@ function ActivityItem(props) {
     <Entypo
       name="cross"
       size={iconSize}
-      color={GlobalStyles.colors.contentBg}
+      color={GlobalStyles.colors.background}
     />
   );
 
@@ -87,18 +89,20 @@ function ActivityItem(props) {
 
   let categoryView = (
     <View style={[styles.categoryContainer]}>
-      <Text style={[styles.categoryName, { color: GlobalStyles.colors.text }]}>
+      <TextUI
+        style={[styles.categoryName, { color: GlobalStyles.colors.text }]}
+      >
         {getFormattedDate(props.date)}
-      </Text>
+      </TextUI>
     </View>
   );
 
   if (props.typeId !== "none") {
     categoryView = (
       <View style={[styles.categoryContainer]}>
-        <Text style={[styles.categoryName, { color: category.color }]}>
+        <TextUI style={[styles.categoryName, { color: category.color }]}>
           {`${category.name}: ${getFormattedDate(props.date)}`}
-        </Text>
+        </TextUI>
       </View>
     );
   }
@@ -107,10 +111,13 @@ function ActivityItem(props) {
     category = actCategoriesCtx.actCategories[0];
   }
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: color.contentBg100 }]}>
       <Pressable
-        android_ripple={{ color: GlobalStyles.colors.contentBg400 }}
+        android_ripple={{ color: color.contentBg400 }}
         style={styles.innerContainer}
         onPress={() =>
           navigation.navigate("ActivityDetailsScreen", {
@@ -119,23 +126,24 @@ function ActivityItem(props) {
         }
       >
         <View style={styles.leftSide}>
-          <Text style={styles.title}>{props.title}</Text>
+          <TextUI style={styles.title}>{props.title}</TextUI>
           <View style={styles.categoryInfoContainer}>{categoryView}</View>
         </View>
         <View style={styles.rightSide}>
           <View style={styles.icon}>{categoryIcon}</View>
-          <Text style={styles.displayTitle}>
+          <TextUI style={styles.displayTitle}>
             {daysLeft < 0 ? "Zakończono" : "Pozostało"}
-          </Text>
+          </TextUI>
           <View style={styles.daysContainer}>
-            <Text
+            <TextUI
               style={[
                 styles.displayText,
+                { color: color.contentBg800 },
                 daysLeft < 0 ? styles.displayOldText : null,
               ]}
             >
               {display}
-            </Text>
+            </TextUI>
           </View>
         </View>
       </Pressable>
@@ -149,7 +157,6 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 1,
     marginHorizontal: 2,
-    backgroundColor: GlobalStyles.colors.contentBg,
     borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
     elevation: GlobalStyles.border.elevation,
@@ -176,7 +183,6 @@ const styles = StyleSheet.create({
   displayText: {
     fontSize: 14,
     fontWeight: "bold",
-    color: GlobalStyles.colors.contentBg800,
   },
   displayOldText: {
     color: GlobalStyles.colors.wrong700,
@@ -198,7 +204,9 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 12,
     fontWeight: "bold",
-    color: GlobalStyles.colors.contentBg,
+    color: GlobalStyles.colors.background,
   },
-  categoryInfoContainer: { flexDirection: "row" },
+  categoryInfoContainer: {
+    flexDirection: "row",
+  },
 });

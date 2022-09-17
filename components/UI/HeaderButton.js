@@ -1,17 +1,12 @@
-import { useContext } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { ThemeContext } from "../../store/themeContext";
 
-function FlatIconButton(props) {
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
-
+function HeaderButton(props) {
   return (
     <View style={[styles.container, props.style]}>
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: color.contentBg400 }}
+        android_ripple={{ color: GlobalStyles.colors.primary900 }}
         style={{ flex: 1 }}
       >
         {props.children}
@@ -20,7 +15,7 @@ function FlatIconButton(props) {
   );
 }
 
-export default FlatIconButton;
+export default HeaderButton;
 
 const styles = StyleSheet.create({
   container: {
@@ -29,12 +24,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
-  },
-  text: {
-    fontSize: 16,
-    paddingHorizontal: 32,
-    paddingVertical: 12,
-    fontWeight: "bold",
-    color: GlobalStyles.colors.text,
   },
 });
