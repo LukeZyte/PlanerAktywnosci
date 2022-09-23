@@ -1,7 +1,7 @@
 import { ScrollView } from "react-native";
 import { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import AddActivity from "../components/Activities/AddActivity";
+import AddActivity from "../components/Activities/AddForm/AddActivity";
 
 function AddActivityScreen(props) {
   const selectedActivityId = props.route.params?.editingId;

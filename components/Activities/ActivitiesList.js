@@ -3,11 +3,9 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import ActivityItem from "./ActivityItem";
 import { ActivitiesContext } from "../../store/activitiesContext";
 import { GlobalStyles } from "../../constants/styles";
-import FlatButton from "../UI/FlatButton";
-import { Ionicons } from "@expo/vector-icons";
-import FlatIconButton from "../UI/FlatIconButton";
 import TextUI from "../UI/TextUI";
 import { ThemeContext } from "../../store/themeContext";
+import ShowExpiredActivitiesButton from "./showExpiredActivitiesButton";
 
 function ActivitiesList() {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -47,9 +45,6 @@ function ActivitiesList() {
     </View>
   );
 
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
-
   return (
     <>
       <View style={styles.listContainer}>
@@ -66,26 +61,7 @@ function ActivitiesList() {
       {activeActivities.length === 0 && (
         <Text style={styles.message}>Brak przyszłych aktywności</Text>
       )}
-      <View style={styles.flatButton}>
-        <FlatIconButton
-          style={{ height: 46, overflow: "hidden" }}
-          onPress={() => setHideOld((prevState) => !prevState)}
-        >
-          <View style={styles.flatButtonInner}>
-            {hideOld ? (
-              <>
-                <Ionicons name="chevron-down" size={20} color={color.text} />
-                <TextUI style={styles.buttonText}>Pokaż zakończone</TextUI>
-              </>
-            ) : (
-              <>
-                <Ionicons name="chevron-up" size={20} color={color.text} />
-                <TextUI style={styles.buttonText}>Ukryj zakończone</TextUI>
-              </>
-            )}
-          </View>
-        </FlatIconButton>
-      </View>
+      <ShowExpiredActivitiesButton hideOld={hideOld} setHideOld={setHideOld} />
       {!hideOld && oldActivities && oldActivitiesList}
       {!hideOld && oldActivities.length === 0 && (
         <TextUI style={styles.message}>Brak zakończonych aktywności</TextUI>
