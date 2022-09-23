@@ -14,6 +14,9 @@ import { ThemeContext } from "../../store/themeContext";
 function ActivityItem(props) {
   const navigation = useNavigation();
 
+  const themeCtx = useContext(ThemeContext);
+  const color = themeCtx.currentTheme.colors;
+
   let today = new Date();
   let activityDay = new Date(props.date);
   let daysLeftInMs = activityDay.getTime() - today.getTime();
@@ -44,60 +47,68 @@ function ActivityItem(props) {
 
   let iconSize = 24;
   let categoryIcon = (
-    <Entypo
-      name="cross"
-      size={iconSize}
-      color={GlobalStyles.colors.background}
-    />
+    // <Entypo
+    //   name="cross"
+    //   size={iconSize}
+    //   color={GlobalStyles.colors.background}
+    // />
+    <View style={{ height: iconSize }}></View>
   );
 
   let category = actCategoriesCtx.actCategories.find(
     (item) => item.id === props.typeId
   );
-
-  switch (category.icon) {
-    case "book-open":
-      categoryIcon = (
-        <FontAwesome5 name="book-open" size={iconSize} color={category.color} />
-      );
-      break;
-    case "file":
-      categoryIcon = (
-        <FontAwesome name="file" size={iconSize} color={category.color} />
-      );
-      break;
-    case "graduation-cap":
-      categoryIcon = (
-        <FontAwesome5
-          name="graduation-cap"
-          size={iconSize}
-          color={category.color}
-        />
-      );
-      break;
-    case "chart-pie":
-      categoryIcon = (
-        <FontAwesome5 name="chart-pie" size={iconSize} color={category.color} />
-      );
-      break;
-    case "star":
-      categoryIcon = (
-        <AntDesign name="star" size={iconSize} color={category.color} />
-      );
-      break;
+  if (category) {
+    switch (category.icon) {
+      case "book-open":
+        categoryIcon = (
+          <FontAwesome5
+            name="book-open"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "file":
+        categoryIcon = (
+          <FontAwesome name="file" size={iconSize} color={category.color} />
+        );
+        break;
+      case "graduation-cap":
+        categoryIcon = (
+          <FontAwesome5
+            name="graduation-cap"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "chart-pie":
+        categoryIcon = (
+          <FontAwesome5
+            name="chart-pie"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "star":
+        categoryIcon = (
+          <AntDesign name="star" size={iconSize} color={category.color} />
+        );
+        break;
+    }
   }
 
   let categoryView = (
     <View style={[styles.categoryContainer]}>
-      <TextUI
-        style={[styles.categoryName, { color: GlobalStyles.colors.text }]}
-      >
+      <TextUI style={styles.categoryName}>
         {getFormattedDate(props.date)}
       </TextUI>
     </View>
   );
 
-  if (props.typeId !== "none") {
+  if (category) {
     categoryView = (
       <View style={[styles.categoryContainer]}>
         <TextUI style={[styles.categoryName, { color: category.color }]}>
@@ -110,9 +121,6 @@ function ActivityItem(props) {
   if (!category) {
     category = actCategoriesCtx.actCategories[0];
   }
-
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
 
   return (
     <View style={[styles.container, { backgroundColor: color.contentBg100 }]}>
@@ -204,7 +212,7 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 12,
     fontWeight: "bold",
-    color: GlobalStyles.colors.background,
+    // color: GlobalStyles.colors.background,
   },
   categoryInfoContainer: {
     flexDirection: "row",

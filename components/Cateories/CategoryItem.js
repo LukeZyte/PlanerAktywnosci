@@ -8,7 +8,7 @@ import TextUI from "../UI/TextUI";
 import { useContext } from "react";
 import { ThemeContext } from "../../store/themeContext";
 
-function CategoryItem(props) {
+function CategoryItem(props, { id }) {
   let categoryIcon = <Entypo name="cross" size={24} color={props.color} />;
 
   switch (props.icon) {
@@ -36,8 +36,13 @@ function CategoryItem(props) {
   }
 
   function categoryPressHandler() {
+    if (id !== "none") {
+      props.onSetSelectedCategoryId(props.id);
+    } else {
+      Alert.alert("WYBRANO NONE");
+      return;
+    }
     props.onSetModalVisible(false);
-    props.onSetSelectedCategoryId(props.id);
   }
 
   const themeCtx = useContext(ThemeContext);

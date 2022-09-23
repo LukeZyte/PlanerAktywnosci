@@ -6,7 +6,6 @@ import TextUI from "../UI/TextUI";
 
 function Button(props) {
   const themeCtx = useContext(ThemeContext);
-  const darkTheme = themeCtx.darkTheme;
   const color = themeCtx.currentTheme.colors;
 
   return (

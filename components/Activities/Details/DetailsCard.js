@@ -38,7 +38,9 @@ const DetailsCard = ({ activity, oldDate }) => {
           <Ionicons name="cube" size={20} color={color.text} />
           <TextUI style={styles.detailsText}>Kategoria:</TextUI>
         </View>
-        <TextUI style={styles.detailsElement}>{category.name}</TextUI>
+        <TextUI style={styles.detailsElement}>
+          {category ? category.name : "Brak"}
+        </TextUI>
       </View>
     </Card>
   );

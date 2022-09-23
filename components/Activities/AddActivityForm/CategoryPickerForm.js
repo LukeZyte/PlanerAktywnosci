@@ -13,6 +13,7 @@ const CategoryPickerForm = ({ selectedCategoryId, setSelectedCategoryId }) => {
   const color = themeCtx.currentTheme.colors;
 
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
+
   const selectedCategory = actCategoriesCtx.actCategories.find(
     (item) => item.id === selectedCategoryId
   );
@@ -30,13 +31,13 @@ const CategoryPickerForm = ({ selectedCategoryId, setSelectedCategoryId }) => {
       <View style={styles.sectionContainer}>
         <View style={{ flexDirection: "row" }}>
           <Ionicons name="cube" size={20} color={color.text} />
-          <TextUI>
-            {!date.choosen ? "Wybierz Kategorię" : "Zmień kategorię"}
+          <TextUI style={styles.categoriesLabel}>
+            {!selectedCategoryId ? "Wybierz Kategorię" : "Zmień kategorię"}
           </TextUI>
         </View>
         <View>
           <TextUI style={styles.categoryMessageText}>
-            {selectedCategory ? selectedCategory.name : "Brak"}
+            {selectedCategory ? selectedCategory.name : "Nie wybrano"}
           </TextUI>
         </View>
       </View>
@@ -57,6 +58,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 12,
     justifyContent: "space-between",
+  },
+  categoriesLabel: {
+    fontSize: 16,
+    marginLeft: 8,
+    textAlignVertical: "center",
   },
   categoryMessageText: {
     color: GlobalStyles.colors.primary700,

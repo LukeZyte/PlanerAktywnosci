@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import ActivityItem from "./ActivityItem";
 import { ActivitiesContext } from "../../store/activitiesContext";
 import { GlobalStyles } from "../../constants/styles";

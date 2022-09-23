@@ -11,7 +11,7 @@ import { useContext } from "react";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function Navigation() {
   const [fontsLoaded] = useFonts({
     "SSPro-regular": require("./assets/fonts/SourceSansPro-Regular.ttf"),
     "SSPro-bold": require("./assets/fonts/SourceSansPro-Bold.ttf"),

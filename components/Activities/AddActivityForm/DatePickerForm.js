@@ -8,6 +8,9 @@ import { useContext, useState } from "react";
 import { GlobalStyles } from "../../../constants/styles";
 
 const DatePickerForm = ({
+  dateNotChoosen,
+  setDateNotChoosen,
+  date,
   setDate,
   oldDate,
   isDatePickerVisible,
@@ -15,8 +18,6 @@ const DatePickerForm = ({
 }) => {
   const themeCtx = useContext(ThemeContext);
   const color = themeCtx.currentTheme.colors;
-
-  const [dateNotChoosen, setDateNotChoosen] = useState(false);
 
   function dateHandler(date) {
     setDateNotChoosen(false);
@@ -37,7 +38,9 @@ const DatePickerForm = ({
       <View style={styles.sectionContainer}>
         <View style={{ flexDirection: "row" }}>
           <Ionicons name="calendar" size={20} color={color.text} />
-          <TextUI>{!date.choosen ? "Wybierz termin" : "Zmień termin"}</TextUI>
+          <TextUI style={styles.dateLabel}>
+            {!date.choosen ? "Wybierz termin" : "Zmień termin"}
+          </TextUI>
         </View>
         <View>
           {date.choosen && (
@@ -80,6 +83,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 12,
     justifyContent: "space-between",
+  },
+  dateLabel: {
+    fontSize: 16,
+    marginLeft: 8,
+    textAlignVertical: "center",
   },
   dateText: {
     color: GlobalStyles.colors.primary700,

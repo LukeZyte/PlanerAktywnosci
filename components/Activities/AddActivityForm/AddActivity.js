@@ -38,6 +38,7 @@ function AddActivity(props) {
     value: isEditing ? new Date(activity.date) : null,
     choosen: isEditing ? true : false,
   });
+  const [dateNotChoosen, setDateNotChoosen] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   let dateText = getFormattedDate(date.value);
@@ -50,20 +51,15 @@ function AddActivity(props) {
     navigation.goBack();
   }
   function submitHandler() {
-    const addActivity = activitiesCtx.addActivity({
-      id: Math.random(),
-      title: enteredTitle.value,
-      description: enteredDesc.value,
-      date: date.value,
-      typeId: selectedCategoryId,
-    });
-    const updateActivity = activitiesCtx.updateActivity(selectedActivityId, {
-      id: activity.id,
-      title: enteredTitle.value,
-      description: enteredDesc.value,
-      date: date.value,
-      typeId: selectedCategoryId,
-    });
+    const addActivity = () => {
+      activitiesCtx.addActivity({
+        id: Math.random(),
+        title: enteredTitle.value,
+        description: enteredDesc.value,
+        date: date.value,
+        typeId: selectedCategoryId,
+      });
+    };
 
     let titleOK = true;
     let descOK = true;
@@ -90,6 +86,7 @@ function AddActivity(props) {
             {
               text: "Cofnij",
               onPress: () => {
+                setDateNotChoosen(true);
                 setDatePickerVisibility(true);
                 setDate(new Date());
               },
@@ -97,7 +94,7 @@ function AddActivity(props) {
             {
               text: "Potwierdź",
               onPress: () => {
-                addActivity;
+                addActivity();
                 navigation.navigate("ActivitiesScreen");
               },
             },
@@ -105,13 +102,22 @@ function AddActivity(props) {
         );
         return;
       }
-      addActivity;
+      addActivity();
       navigation.navigate("ActivitiesScreen");
     } else if (formOK && isEditing) {
+      const updateActivity = () => {
+        activitiesCtx.updateActivity(selectedActivityId, {
+          id: activity.id,
+          title: enteredTitle.value,
+          description: enteredDesc.value,
+          date: date.value,
+          typeId: selectedCategoryId,
+        });
+      };
       if (oldDate) {
         Alert.alert(
-          "Zaczekaj!",
-          "Wybrano datę z przeszłości dla terminu aktyności. Aby na pewno chcesz potwierdzić?",
+          "Przedawniony termin!",
+          "Wybrano przedawniony termin aktyności. Czy chcesz edytować aktywność mimo to?",
           [
             {
               text: "Cofnij",
@@ -123,7 +129,7 @@ function AddActivity(props) {
             {
               text: "Zatwierdź",
               onPress: () => {
-                updateActivity;
+                updateActivity();
                 navigation.navigate("ActivitiesScreen");
               },
             },
@@ -131,18 +137,18 @@ function AddActivity(props) {
         );
         return;
       }
-      updateActivity;
+      updateActivity();
       navigation.navigate("ActivitiesScreen");
     }
   }
 
   // CATEGORYPICKERFORM //
-  const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategory);
-
-  let initialCategory = "none";
+  let initialCategory = null;
   if (isEditing) {
     initialCategory = activity.typeId;
   }
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategory);
 
   return (
     <View style={styles.container}>
@@ -155,7 +161,10 @@ function AddActivity(props) {
       <Card style={styles.card}>
         <MenuLabel style={styles.label}>Dostosuj</MenuLabel>
         <DatePickerForm
+          date={date}
           setDate={setDate}
+          dateNotChoosen={dateNotChoosen}
+          setDateNotChoosen={setDateNotChoosen}
           oldDate={oldDate}
           isDatePickerVisible={isDatePickerVisible}
           setDatePickerVisibility={setDatePickerVisibility}

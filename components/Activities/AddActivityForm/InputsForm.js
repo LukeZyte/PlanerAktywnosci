@@ -1,3 +1,4 @@
+import { useTheme } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
 import Input from "../../UI/Input";
@@ -8,14 +9,16 @@ const InputsForm = ({
   enteredDesc,
   setEnteredDesc,
 }) => {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.inputsContainer}>
       <Input
         style={
           !enteredTitle.isValid && {
-            backgroundColor: color.wrong200,
+            backgroundColor: colors.wrong200,
             borderWidth: 1,
-            borderColor: color.wrong500,
+            borderColor: colors.wrong500,
           }
         }
         label="Tytuł"

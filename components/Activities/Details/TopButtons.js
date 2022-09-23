@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ActivitiesContext } from "../../../store/activitiesContext";
 
-const TopButtons = ({ selectedActivityId }) => {
+const TopButtons = ({ selectedActivityId, activity }) => {
   const activitiesCtx = useContext(ActivitiesContext);
   const themeCtx = useContext(ThemeContext);
   const color = themeCtx.currentTheme.colors;

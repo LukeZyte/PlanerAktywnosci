@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ActivitiesList from "../components/Activities/ActivitiesList";
 import { Ionicons } from "@expo/vector-icons";
 import { ActivitiesContext } from "../store/activitiesContext";
@@ -8,8 +8,7 @@ import CircleButton from "../components/UI/CircleButton";
 import EmptyListMessage from "../components/Activities/EmptyListMessage";
 import { GlobalStyles } from "../constants/styles";
 import { ThemeContext } from "../store/themeContext";
-import HeaderButton from "../components/UI/FlatButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import HeaderButton from "../components/UI/HeaderButton";
 import TextUI from "../components/UI/TextUI";
 
 function ActivitiesScreen() {
@@ -22,15 +21,18 @@ function ActivitiesScreen() {
     navigation.setOptions({
       headerRight: () => (
         <HeaderButton onPress={themeCtx.toggleThemeMode}>
-          <MaterialCommunityIcons
-            name="theme-light-dark"
-            size={30}
-            color="white"
-          />
+          <View style={{ padding: 8 }}>
+            {themeCtx.darkTheme && (
+              <Ionicons name="sunny" size={24} color="white" />
+            )}
+            {!themeCtx.darkTheme && (
+              <Ionicons name="moon" size={24} color="white" />
+            )}
+          </View>
         </HeaderButton>
       ),
     });
-  }, [navigation]);
+  }, [navigation, themeCtx.toggleThemeMode]);
 
   return (
     <>

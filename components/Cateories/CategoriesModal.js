@@ -20,7 +20,10 @@ function CategoriesModal(props) {
         <TextUI style={styles.title}>Wybór kategorii</TextUI>
         <FlatList
           style={styles.list}
-          data={actCategoriesCtx.actCategories}
+          data={[
+            ...actCategoriesCtx.actCategories,
+            { id: "none", name: "Brak", color: "black", icon: null },
+          ]}
           keyExtractor={(item) => item.id}
           renderItem={(itemData) => {
             return (

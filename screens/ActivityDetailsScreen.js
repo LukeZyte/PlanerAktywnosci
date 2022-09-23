@@ -36,48 +36,52 @@ function ActivityDetailsScreen(props) {
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
   let iconSize = 32;
-  let categoryIcon = (
-    <Entypo
-      name="cross"
-      size={iconSize}
-      color={GlobalStyles.colors.background}
-    />
-  );
+  let categoryIcon = null;
 
   let category = actCategoriesCtx.actCategories.find(
     (item) => item.id === activity.typeId
   );
 
-  switch (category.icon) {
-    case "book-open":
-      categoryIcon = (
-        <FontAwesome5 name="book-open" size={iconSize} color={category.color} />
-      );
-      break;
-    case "file":
-      categoryIcon = (
-        <FontAwesome name="file" size={iconSize} color={category.color} />
-      );
-      break;
-    case "graduation-cap":
-      categoryIcon = (
-        <FontAwesome5
-          name="graduation-cap"
-          size={iconSize}
-          color={category.color}
-        />
-      );
-      break;
-    case "chart-pie":
-      categoryIcon = (
-        <FontAwesome5 name="chart-pie" size={iconSize} color={category.color} />
-      );
-      break;
-    case "star":
-      categoryIcon = (
-        <AntDesign name="star" size={iconSize} color={category.color} />
-      );
-      break;
+  if (category) {
+    switch (category.icon) {
+      case "book-open":
+        categoryIcon = (
+          <FontAwesome5
+            name="book-open"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "file":
+        categoryIcon = (
+          <FontAwesome name="file" size={iconSize} color={category.color} />
+        );
+        break;
+      case "graduation-cap":
+        categoryIcon = (
+          <FontAwesome5
+            name="graduation-cap"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "chart-pie":
+        categoryIcon = (
+          <FontAwesome5
+            name="chart-pie"
+            size={iconSize}
+            color={category.color}
+          />
+        );
+        break;
+      case "star":
+        categoryIcon = (
+          <AntDesign name="star" size={iconSize} color={category.color} />
+        );
+        break;
+    }
   }
 
   return (
@@ -96,7 +100,10 @@ function ActivityDetailsScreen(props) {
               {categoryIcon}
             </View>
             <TextUI style={styles.title}>{activity.title}</TextUI>
-            <TopButtons selectedActivityId={selectedActivityId} />
+            <TopButtons
+              selectedActivityId={selectedActivityId}
+              activity={activity}
+            />
             <Description activity={activity} />
             <DetailsCard activity={activity} oldDate={oldDate} />
           </View>

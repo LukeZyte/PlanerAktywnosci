@@ -1,7 +1,7 @@
 export const GlobalStyles = {
   colors: {
-    primary300: "#00ff55",
     primary: "#00e676",
+    primary300: "#00ff55",
     primary700: "#00bb77",
     primary900: "#009977",
 
@@ -12,7 +12,7 @@ export const GlobalStyles = {
 
     text: "#000000",
 
-    background: "#dddddd",
+    background: "#eeeeee",
     contentBg100: "#ffffff",
     contentBg200: "#dddddd",
     contentBg400: "#bbbbbb",
@@ -32,8 +32,8 @@ export const GlobalStyles = {
 
 export const GlobalStylesDark = {
   colors: {
-    primary300: "#00ff55",
     primary: "#00e676",
+    primary300: "#00ff55",
     primary700: "#00bb77",
     primary900: "#009977",
 

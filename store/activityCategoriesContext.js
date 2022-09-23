@@ -10,7 +10,7 @@ const DUMMY_CATEGORIES = [
   { id: "c3", name: "Egzamin", color: "red", icon: "graduation-cap" },
   { id: "c4", name: "Projekt", color: "#0b7", icon: "chart-pie" },
   { id: "c5", name: "Inne", color: "#ff66ff", icon: "star" },
-  { id: "none", name: "Brak", color: "black", icon: null },
+  // { id: "none", name: "Brak", color: "red", icon: null },
 ];
 
 function ActCategoriesContextProvider(props) {
