@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/HomeScreen";
 import ActivitiesScreen from "./screens/ActivitiesScreen";
 import ActivityDetailsScreen from "./screens/ActivityDetailsScreen";
 import { GlobalStyles } from "./constants/styles";
@@ -43,7 +42,6 @@ export default function App() {
               headerTitle: "Moje aktywności",
             }}
           />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen
             name="ActivityDetailsScreen"
             component={ActivityDetailsScreen}

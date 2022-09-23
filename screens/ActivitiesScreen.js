@@ -75,24 +75,3 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.text,
   },
 });
-
-// const darkStyles = StyleSheet.create({
-//   activitiesListContainer: {
-//     backgroundColor: GlobalStylesDark.colors.background,
-//   },
-//   buttons: {
-//     height: 120,
-//     flexDirection: "row",
-//     justifyContent: "flex-end",
-//     alignItems: "flex-end",
-//     paddingBottom: 24,
-//     paddingRight: 24,
-//   },
-//   circleText: {
-//     width: 80,
-//     height: 80,
-//     textAlign: "center",
-//     textAlignVertical: "center",
-//     color: GlobalStyles.colors.text,
-//   },
-// });

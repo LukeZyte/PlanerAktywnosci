@@ -15,7 +15,7 @@ function Input(props) {
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: color.contentBg200, color: color.text },
+          { backgroundColor: color.contentBg100, color: color.text },
           focus && styles.focusInput,
           focus && {
             backgroundColor: color.bgPrimary200,

@@ -12,7 +12,7 @@ export const GlobalStyles = {
 
     text: "#000000",
 
-    background: "#eeeeee",
+    background: "#dddddd",
     contentBg100: "#ffffff",
     contentBg200: "#dddddd",
     contentBg400: "#bbbbbb",
