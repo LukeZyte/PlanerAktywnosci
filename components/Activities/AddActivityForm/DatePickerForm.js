@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import FlatIconButton from "../../UI/FlatIconButton";
 import TextUI from "../../UI/TextUI";
 import DateTimePickerModal from "react-native-modal-datetime-picker";

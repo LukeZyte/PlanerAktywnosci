@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import FlatIconButton from "../../UI/FlatIconButton";
 import TextUI from "../../UI/TextUI";
 import { Ionicons } from "@expo/vector-icons";
