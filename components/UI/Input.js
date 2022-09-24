@@ -1,3 +1,4 @@
+import { useTheme } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
@@ -8,6 +9,7 @@ function Input(props) {
   const [focus, setFocus] = useState(false);
   const themeCtx = useContext(ThemeContext);
   const color = themeCtx.currentTheme.colors;
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -24,6 +26,11 @@ function Input(props) {
           props.style,
         ]}
         placeholder={props.placeholder}
+        placeholderTextColor={
+          props.placeholderTextColor
+            ? props.placeholderTextColor
+            : colors.contentBg600
+        }
         value={props.value}
         onChangeText={props.onChangeText}
         multiline={props.multiline}

@@ -1,18 +1,16 @@
-import { useContext, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useContext, useLayoutEffect, useState } from "react";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import ActivityItem from "./ActivityItem";
 import { ActivitiesContext } from "../../store/activitiesContext";
 import { GlobalStyles } from "../../constants/styles";
-import TextUI from "../UI/TextUI";
 import { ThemeContext } from "../../store/themeContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ShowExpiredActivitiesButton from "./showExpiredActivitiesButton";
 
 function ActivitiesList() {
   const activitiesCtx = useContext(ActivitiesContext);
 
   let today = new Date();
-  let activeActivitiesNumber = 0;
-  let oldActivitiesNumber = 0;
   let activeActivities = activitiesCtx.activities.filter((activity) => {
     return (
       Math.ceil(
@@ -29,11 +27,30 @@ function ActivitiesList() {
       ) < 0
   );
 
+  useLayoutEffect(() => {
+    const getHideOld = async () => {
+      try {
+        const value = await AsyncStorage.getItem("@hideOldKey");
+        if (value !== null) {
+          if (value === "true") {
+            setHideOld(true);
+          } else {
+            setHideOld(false);
+          }
+        }
+      } catch (error) {
+        Alert.alert(error);
+      }
+    };
+
+    getHideOld();
+  }, []);
+
   const [hideOld, setHideOld] = useState(true);
 
   let oldActivitiesList = (
     <View style={styles.listContainer}>
-      <FlatList
+      {/* <FlatList
         keyExtractor={(item) => {
           return item.id;
         }}
@@ -41,14 +58,23 @@ function ActivitiesList() {
         renderItem={(itemData) => {
           return <ActivityItem {...itemData.item} index={itemData.index} />;
         }}
-      />
+      /> */}
+      {oldActivities.map((itemData) => {
+        return (
+          <ActivityItem
+            key={itemData.id}
+            {...itemData}
+            index={itemData.index}
+          />
+        );
+      })}
     </View>
   );
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.listContainer}>
-        <FlatList
+        {/* <FlatList
           keyExtractor={(item, index) => {
             return item.id;
           }}
@@ -56,17 +82,31 @@ function ActivitiesList() {
           renderItem={(itemData) => {
             return <ActivityItem {...itemData.item} index={itemData.index} />;
           }}
-        />
+        /> */}
+        {activeActivities.map((itemData) => {
+          return (
+            <ActivityItem
+              key={itemData.id}
+              {...itemData}
+              index={itemData.index}
+            />
+          );
+        })}
       </View>
       {activeActivities.length === 0 && (
-        <Text style={styles.message}>Brak przyszłych aktywności</Text>
+        <Text style={styles.message}>Brak zaplanowanych aktywności</Text>
       )}
-      <ShowExpiredActivitiesButton hideOld={hideOld} setHideOld={setHideOld} />
+      {oldActivities.length > 0 && (
+        <ShowExpiredActivitiesButton
+          hideOld={hideOld}
+          setHideOld={setHideOld}
+        />
+      )}
       {!hideOld && oldActivities && oldActivitiesList}
-      {!hideOld && oldActivities.length === 0 && (
+      {/* {!hideOld && oldActivities.length === 0 && (
         <TextUI style={styles.message}>Brak zakończonych aktywności</TextUI>
-      )}
-    </>
+      )} */}
+    </ScrollView>
   );
 }
 

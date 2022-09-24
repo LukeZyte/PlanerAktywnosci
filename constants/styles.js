@@ -7,8 +7,10 @@ export const GlobalStyles = {
 
     bgPrimary200: "#c3e0d3",
 
-    headerBg: "#00b248",
+    // headerBg: "#00b248",
+    headerBg: "#00e676",
     headerText: "white",
+    headerButtonText: "white",
 
     text: "#000000",
 
@@ -39,8 +41,9 @@ export const GlobalStylesDark = {
 
     bgPrimary200: "#375045",
 
-    headerBg: "#000000",
-    headerText: "#00b248",
+    headerBg: "#151515",
+    headerText: "#ffffff",
+    headerButtonText: "white",
 
     text: "#ffffff",
 

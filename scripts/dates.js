@@ -42,3 +42,10 @@ export function getFormattedDate(date) {
   let year = new Date(date).getFullYear();
   return (dateText = `${day} ${month} ${year}`);
 }
+
+export function getSimpleDate(date) {
+  let day = ("0" + new Date(date).getDate()).slice(-2);
+  let month = ("0" + (new Date(date).getMonth() + 1)).slice(-2);
+  let year = new Date(date).getFullYear().toString().slice(-2);
+  return (dateText = `${day}.${month}.${year}`);
+}

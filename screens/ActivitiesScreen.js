@@ -3,7 +3,7 @@ import ActivitiesList from "../components/Activities/ActivitiesList";
 import { Ionicons } from "@expo/vector-icons";
 import { ActivitiesContext } from "../store/activitiesContext";
 import { useContext, useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import CircleButton from "../components/UI/CircleButton";
 import EmptyListMessage from "../components/Activities/EmptyListMessage";
 import { GlobalStyles } from "../constants/styles";
@@ -16,6 +16,7 @@ function ActivitiesScreen() {
   const themeCtx = useContext(ThemeContext);
   const navigation = useNavigation();
   const activitiesNumber = activitiesCtx.activities.length;
+  const { colors } = useTheme();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -23,10 +24,14 @@ function ActivitiesScreen() {
         <HeaderButton onPress={themeCtx.toggleThemeMode}>
           <View style={{ padding: 8 }}>
             {themeCtx.darkTheme && (
-              <Ionicons name="sunny" size={24} color="white" />
+              <Ionicons
+                name="sunny"
+                size={24}
+                color={colors.headerButtonText}
+              />
             )}
             {!themeCtx.darkTheme && (
-              <Ionicons name="moon" size={24} color="white" />
+              <Ionicons name="moon" size={24} color={colors.headerButtonText} />
             )}
           </View>
         </HeaderButton>
@@ -40,7 +45,7 @@ function ActivitiesScreen() {
         {activitiesNumber > 0 && <ActivitiesList />}
         {activitiesNumber === 0 && <EmptyListMessage />}
       </View>
-      <View style={styles.buttons}>
+      <View style={[styles.buttons, { backgroundColor: colors.background }]}>
         <CircleButton onPress={() => navigation.navigate("AddActivityScreen")}>
           <TextUI style={styles.circleText}>
             <Ionicons name="add" size={42} />
@@ -62,12 +67,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttons: {
-    height: 120,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    paddingBottom: 24,
-    paddingRight: 24,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    // height: 120,
+    // flexDirection: "row",
+    // justifyContent: "flex-end",
+    // alignItems: "flex-end",
+    margin: 12,
+    padding: 4,
+    borderRadius: 50,
   },
   circleText: {
     width: 80,

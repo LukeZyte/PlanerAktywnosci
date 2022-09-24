@@ -7,7 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
 import { Entypo } from "@expo/vector-icons";
-import { getFormattedDate } from "../../scripts/dates";
+import { getFormattedDate, getSimpleDate } from "../../scripts/dates";
 import TextUI from "../UI/TextUI";
 import { ThemeContext } from "../../store/themeContext";
 
@@ -46,14 +46,7 @@ function ActivityItem(props) {
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
   let iconSize = 24;
-  let categoryIcon = (
-    // <Entypo
-    //   name="cross"
-    //   size={iconSize}
-    //   color={GlobalStyles.colors.background}
-    // />
-    <View style={{ height: iconSize }}></View>
-  );
+  let categoryIcon = <View style={{ height: iconSize }}></View>;
 
   let category = actCategoriesCtx.actCategories.find(
     (item) => item.id === props.typeId
@@ -102,9 +95,7 @@ function ActivityItem(props) {
 
   let categoryView = (
     <View style={[styles.categoryContainer]}>
-      <TextUI style={styles.categoryName}>
-        {getFormattedDate(props.date)}
-      </TextUI>
+      <TextUI style={styles.categoryName}>{getSimpleDate(props.date)}</TextUI>
     </View>
   );
 
@@ -112,7 +103,7 @@ function ActivityItem(props) {
     categoryView = (
       <View style={[styles.categoryContainer]}>
         <TextUI style={[styles.categoryName, { color: category.color }]}>
-          {`${category.name}: ${getFormattedDate(props.date)}`}
+          {`${category.name}: ${getSimpleDate(props.date)}`}
         </TextUI>
       </View>
     );
@@ -176,7 +167,7 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingVertical: 8,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   leftSide: {
