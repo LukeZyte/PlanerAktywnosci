@@ -47,8 +47,8 @@ function ActivitiesScreen() {
       </View>
       <View style={[styles.buttons, { backgroundColor: colors.background }]}>
         <CircleButton onPress={() => navigation.navigate("AddActivityScreen")}>
-          <TextUI style={styles.circleText}>
-            <Ionicons name="add" size={42} />
+          <TextUI style={[styles.circleText, { color: colors.text }]}>
+            <Ionicons name="add" size={42} color={colors.background} />
           </TextUI>
         </CircleButton>
       </View>
@@ -61,7 +61,6 @@ export default ActivitiesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "orange",
   },
   activitiesListContainer: {
     flex: 1,
@@ -70,10 +69,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    // height: 120,
-    // flexDirection: "row",
-    // justifyContent: "flex-end",
-    // alignItems: "flex-end",
     margin: 12,
     padding: 4,
     borderRadius: 50,
@@ -83,6 +78,5 @@ const styles = StyleSheet.create({
     height: 80,
     textAlign: "center",
     textAlignVertical: "center",
-    color: GlobalStyles.colors.text,
   },
 });

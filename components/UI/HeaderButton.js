@@ -1,12 +1,13 @@
 import { useTheme } from "@react-navigation/native";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { Pressable, StyleSheet, View } from "react-native";
 
 function HeaderButton(props) {
-  const { colors } = useTheme();
+  const { colors, border } = useTheme();
 
   return (
-    <View style={[styles.container, props.style]}>
+    <View
+      style={[styles.container, { borderRadius: border.radius }, props.style]}
+    >
       <Pressable
         onPress={props.onPress}
         android_ripple={{ color: colors.primary900 }}
@@ -23,7 +24,6 @@ export default HeaderButton;
 const styles = StyleSheet.create({
   container: {
     overflow: "hidden",
-    borderRadius: GlobalStyles.border.radius,
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",

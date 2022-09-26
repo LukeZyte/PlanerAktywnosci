@@ -1,15 +1,11 @@
 import { useTheme } from "@react-navigation/native";
-import { useContext, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import { ThemeContext } from "../../store/themeContext";
+import { useState } from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 import TextUI from "./TextUI";
 
 function Input(props) {
   const [focus, setFocus] = useState(false);
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
-  const { colors } = useTheme();
+  const { colors, border } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -17,11 +13,17 @@ function Input(props) {
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: color.contentBg100, color: color.text },
+          {
+            backgroundColor: colors.contentBg100,
+            color: colors.text,
+            borderColor: colors.contentBg200,
+            borderBottomColor: colors.primary,
+            borderRadius: border.radius,
+          },
           focus && styles.focusInput,
           focus && {
-            backgroundColor: color.bgPrimary200,
-            borderColor: color.primary,
+            backgroundColor: colors.bgPrimary200,
+            borderColor: colors.primary,
           },
           props.style,
         ]}
@@ -46,19 +48,13 @@ function Input(props) {
 export default Input;
 
 const styles = StyleSheet.create({
-  container: {},
   input: {
-    backgroundColor: GlobalStyles.colors.contentBg200,
-    borderRadius: GlobalStyles.border.radius,
     borderWidth: 0.1,
     borderBottomWidth: 3,
-    borderBottomColor: GlobalStyles.colors.primary,
-    borderColor: GlobalStyles.colors.contentBg200,
     paddingHorizontal: 8,
     paddingVertical: 12,
     fontSize: 16,
   },
-  focusInput: {},
   label: {
     fontSize: 16,
     marginLeft: 4,

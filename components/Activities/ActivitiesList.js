@@ -6,9 +6,11 @@ import { GlobalStyles } from "../../constants/styles";
 import { ThemeContext } from "../../store/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ShowExpiredActivitiesButton from "./showExpiredActivitiesButton";
+import { useTheme } from "@react-navigation/native";
 
 function ActivitiesList() {
   const activitiesCtx = useContext(ActivitiesContext);
+  const { colors, border } = useTheme();
 
   let today = new Date();
   let activeActivities = activitiesCtx.activities.filter((activity) => {
@@ -65,6 +67,10 @@ function ActivitiesList() {
             key={itemData.id}
             {...itemData}
             index={itemData.index}
+            titleStyle={{
+              textDecorationLine: "line-through",
+              color: colors.contentBg600,
+            }}
           />
         );
       })}
@@ -94,7 +100,9 @@ function ActivitiesList() {
         })}
       </View>
       {activeActivities.length === 0 && (
-        <Text style={styles.message}>Brak zaplanowanych aktywności</Text>
+        <Text style={[styles.message, { color: colors.contentBg600 }]}>
+          Brak zaplanowanych aktywności
+        </Text>
       )}
       {oldActivities.length > 0 && (
         <ShowExpiredActivitiesButton
@@ -117,23 +125,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
     marginVertical: 8,
   },
-  flatButton: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  flatButtonInner: {
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    flexDirection: "row",
-    borderRadius: GlobalStyles.border.radius,
-  },
   buttonText: {
     marginLeft: 8,
     fontWeight: "bold",
   },
   message: {
     textAlign: "center",
-    color: GlobalStyles.colors.contentBg600,
     marginBottom: 16,
   },
 });

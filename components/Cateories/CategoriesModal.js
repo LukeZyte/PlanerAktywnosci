@@ -7,8 +7,10 @@ import Card from "../UI/Card";
 import FlatButton from "../UI/FlatButton";
 import ModalWindow from "../UI/ModalWindow";
 import TextUI from "../UI/TextUI";
+import { useTheme } from "@react-navigation/native";
 
 function CategoriesModal(props) {
+  const { colors } = useTheme();
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
   return (
@@ -37,7 +39,7 @@ function CategoriesModal(props) {
         />
         <FlatButton
           onPress={props.onSetModalVisibility}
-          textStyle={styles.buttonText}
+          textStyle={{ color: colors.primary700 }}
         >
           Anuluj
         </FlatButton>
@@ -64,8 +66,5 @@ const styles = StyleSheet.create({
   list: {
     marginVertical: 16,
     width: "100%",
-  },
-  buttonText: {
-    color: GlobalStyles.colors.primary700,
   },
 });

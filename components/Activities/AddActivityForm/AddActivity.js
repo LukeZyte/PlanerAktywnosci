@@ -3,7 +3,6 @@ import Button from "../../UI/Button";
 import { useContext, useState } from "react";
 import { ActivitiesContext } from "../../../store/activitiesContext";
 import FlatButton from "../../UI/FlatButton";
-import { GlobalStyles } from "../../../constants/styles";
 import { useNavigation } from "@react-navigation/native";
 import { getFormattedDate } from "../../../scripts/dates";
 import Card from "../../UI/Card";
@@ -174,8 +173,8 @@ function AddActivity(props) {
           setSelectedCategoryId={setSelectedCategoryId}
         />
       </Card>
-      <View style={styles.buttons}>
-        <FlatButton onPress={cancelHandler}>
+      <View style={styles.buttonsContainer}>
+        <FlatButton onPress={cancelHandler} style={styles.cancelButton}>
           <TextUI>Anuluj</TextUI>
         </FlatButton>
         <Button style={styles.confirmButton} onPress={submitHandler}>
@@ -199,23 +198,18 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingVertical: 16,
   },
-  sectionContainer: {
-    flexDirection: "row",
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    justifyContent: "space-between",
-  },
-  categoryMessageText: {
-    color: GlobalStyles.colors.primary700,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  buttons: {
+  buttonsContainer: {
     marginVertical: 24,
     flexDirection: "row",
     justifyContent: "center",
   },
   confirmButton: {
+    width: 120,
+    textAlign: "center",
     marginLeft: 24,
+  },
+  cancelButton: {
+    width: 120,
+    textAlign: "center",
   },
 });

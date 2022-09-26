@@ -1,14 +1,19 @@
+const primary = "#00d339";
+const primary300 = "#00d339";
+const primary700 = "#00d339";
+const primary900 = "#00d339";
+
 export const GlobalStyles = {
   colors: {
-    primary: "#00e676",
-    primary300: "#00ff55",
-    primary700: "#00bb77",
-    primary900: "#009977",
+    primary: primary,
+    primary300: primary300,
+    primary700: primary700,
+    primary900: primary900,
 
     bgPrimary200: "#c3e0d3",
 
     // headerBg: "#00b248",
-    headerBg: "#00e676",
+    headerBg: "#00d339",
     headerText: "white",
     headerButtonText: "white",
 
@@ -16,7 +21,6 @@ export const GlobalStyles = {
 
     background: "#eeeeee",
     contentBg100: "#ffffff",
-    contentBg200: "#dddddd",
     contentBg400: "#bbbbbb",
     contentBg600: "#888888",
     contentBg800: "#555555",
@@ -27,6 +31,7 @@ export const GlobalStyles = {
   },
   border: {
     radius: 8,
+    round: 150,
     elevation: 1,
     elevationBig: 8,
   },
@@ -34,23 +39,22 @@ export const GlobalStyles = {
 
 export const GlobalStylesDark = {
   colors: {
-    primary: "#00e676",
-    primary300: "#00ff55",
-    primary700: "#00bb77",
-    primary900: "#009977",
+    primary: primary,
+    primary300: primary300,
+    primary700: primary700,
+    primary900: primary900,
 
     bgPrimary200: "#375045",
 
-    headerBg: "#151515",
+    headerBg: "#181818",
     headerText: "#ffffff",
     headerButtonText: "white",
 
     text: "#ffffff",
 
-    background: "#252525",
-    contentBg100: "#3d3d3d",
-    contentBg200: "#505050",
-    contentBg400: "#5f5f5f",
+    background: "#000000",
+    contentBg100: "#181818",
+    contentBg400: "#464646",
     contentBg600: "#888888",
     contentBg800: "#dadada",
 
@@ -60,6 +64,7 @@ export const GlobalStylesDark = {
   },
   border: {
     radius: 8,
+    round: 150,
     elevation: 1,
     elevationBig: 8,
   },

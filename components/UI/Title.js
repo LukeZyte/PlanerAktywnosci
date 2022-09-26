@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import TextUI from "./TextUI";
 
 function Title({ style, children }) {
@@ -16,10 +16,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "orange",
   },
   text: {
-    // fontFamily: "SSPro-regular",
     fontSize: 18,
   },
 });

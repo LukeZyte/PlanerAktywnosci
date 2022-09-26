@@ -1,20 +1,26 @@
-import { useContext } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
-import { ThemeContext } from "../../store/themeContext";
 import TextUI from "./TextUI";
 
 function CircleButton(props) {
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors, border } = useTheme();
 
   return (
-    <View style={[styles.circleContainer, props.style]}>
+    <View
+      style={[
+        styles.circleContainer,
+        { backgroundColor: colors.primary, elevation: border.elevationBig },
+        props.style,
+      ]}
+    >
       <Pressable
         onPress={props.onPress}
-        android_ripple={{ color: color.primary900 }}
+        android_ripple={{ color: colors.primary900 }}
       >
-        <TextUI style={styles.text}>{props.children}</TextUI>
+        <TextUI style={[styles.text, { color: colors.text }]}>
+          {props.children}
+        </TextUI>
       </Pressable>
     </View>
   );
@@ -24,8 +30,6 @@ export default CircleButton;
 
 const styles = StyleSheet.create({
   circleContainer: {
-    backgroundColor: GlobalStyles.colors.primary,
-    elevation: GlobalStyles.border.elevationBig,
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
@@ -40,6 +44,5 @@ const styles = StyleSheet.create({
     // fontWeight: "bold",
     paddingHorizontal: 16,
     paddingVertical: 8,
-    color: GlobalStyles.colors.text,
   },
 });

@@ -1,21 +1,17 @@
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
-import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { useContext } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
-import { Entypo } from "@expo/vector-icons";
-import { getFormattedDate, getSimpleDate } from "../../scripts/dates";
+import { getSimpleDate } from "../../scripts/dates";
 import TextUI from "../UI/TextUI";
-import { ThemeContext } from "../../store/themeContext";
 
 function ActivityItem(props) {
   const navigation = useNavigation();
 
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors, border } = useTheme();
 
   let today = new Date();
   let activityDay = new Date(props.date);
@@ -114,9 +110,18 @@ function ActivityItem(props) {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: color.contentBg100 }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.contentBg100,
+          borderRadius: border.radius,
+          elevation: border.elevation,
+        },
+      ]}
+    >
       <Pressable
-        android_ripple={{ color: color.contentBg400 }}
+        android_ripple={{ color: colors.contentBg400 }}
         style={styles.innerContainer}
         onPress={() =>
           navigation.navigate("ActivityDetailsScreen", {
@@ -125,7 +130,9 @@ function ActivityItem(props) {
         }
       >
         <View style={styles.leftSide}>
-          <TextUI style={styles.title}>{props.title}</TextUI>
+          <TextUI style={[styles.title, props.titleStyle]}>
+            {props.title}
+          </TextUI>
           <View style={styles.categoryInfoContainer}>{categoryView}</View>
         </View>
         <View style={styles.rightSide}>
@@ -137,8 +144,8 @@ function ActivityItem(props) {
             <TextUI
               style={[
                 styles.displayText,
-                { color: color.contentBg800 },
-                daysLeft < 0 ? styles.displayOldText : null,
+                { color: colors.contentBg800 },
+                daysLeft < 0 ? { color: colors.wrong700 } : null,
               ]}
             >
               {display}
@@ -156,9 +163,7 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 1,
     marginHorizontal: 2,
-    borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
-    elevation: GlobalStyles.border.elevation,
   },
   innerContainer: {
     flexDirection: "row",
@@ -183,9 +188,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
   },
-  displayOldText: {
-    color: GlobalStyles.colors.wrong700,
-  },
   displayTitle: {
     fontSize: 12,
   },
@@ -203,7 +205,6 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 12,
     fontWeight: "bold",
-    // color: GlobalStyles.colors.background,
   },
   categoryInfoContainer: {
     flexDirection: "row",

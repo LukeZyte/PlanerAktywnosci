@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ActivitiesScreen from "./screens/ActivitiesScreen";
 import ActivityDetailsScreen from "./screens/ActivityDetailsScreen";
-import { GlobalStyles } from "./constants/styles";
 import AddActivityScreen from "./screens/AddActivityScreen";
 import { ThemeContext } from "./store/themeContext";
 import { useContext } from "react";

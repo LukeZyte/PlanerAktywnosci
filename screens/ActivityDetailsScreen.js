@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { ActivitiesContext } from "../store/activitiesContext";
 import { ActivityCategoriesContext } from "../store/activityCategoriesContext";
 import { useContext, useLayoutEffect } from "react";
@@ -10,8 +10,6 @@ import DetailsCard from "../components/Activities/Details/DetailsCard";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { GlobalStyles } from "../constants/styles";
 
 function ActivityDetailsScreen(props) {
   const activitiesCtx = useContext(ActivitiesContext);

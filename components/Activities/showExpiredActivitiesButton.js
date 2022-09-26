@@ -3,13 +3,11 @@ import FlatIconButton from "../UI/FlatIconButton";
 import TextUI from "../UI/TextUI";
 import { Ionicons } from "@expo/vector-icons";
 import { GlobalStyles } from "../../constants/styles";
-import { ThemeContext } from "../../store/themeContext";
-import { useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "@react-navigation/native";
 
 const ShowExpiredActivitiesButton = ({ hideOld, setHideOld }) => {
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors, border } = useTheme();
 
   const setHideOldStore = async (data) => {
     try {
@@ -28,15 +26,15 @@ const ShowExpiredActivitiesButton = ({ hideOld, setHideOld }) => {
           setHideOldStore(!hideOld);
         }}
       >
-        <View style={styles.flatButtonInner}>
+        <View style={[styles.flatButtonInner, { borderRadius: border.radius }]}>
           {hideOld ? (
             <>
-              <Ionicons name="chevron-down" size={20} color={color.text} />
+              <Ionicons name="chevron-down" size={20} color={colors.text} />
               <TextUI style={styles.buttonText}>Pokaż zakończone</TextUI>
             </>
           ) : (
             <>
-              <Ionicons name="chevron-up" size={20} color={color.text} />
+              <Ionicons name="chevron-up" size={20} color={colors.text} />
               <TextUI style={styles.buttonText}>Ukryj zakończone</TextUI>
             </>
           )}
@@ -57,7 +55,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 12,
     flexDirection: "row",
-    borderRadius: GlobalStyles.border.radius,
   },
   buttonText: {
     marginLeft: 8,

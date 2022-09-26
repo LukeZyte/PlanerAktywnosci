@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
-import { Alert, Modal, StyleSheet, Text, View } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { useRef } from "react";
+import { Modal, StyleSheet, View } from "react-native";
 import OutsideView from "react-native-detect-press-outside";
-import Card from "./Card";
 
 function ModalWindow(props) {
   const childRef = useRef();
+  const { colors } = useTheme();
 
   return (
     <Modal
@@ -12,7 +13,7 @@ function ModalWindow(props) {
       visible={props.onModalVisible}
       animationType={"fade"}
     >
-      <View style={styles.rootContainer}>
+      <View style={[styles.rootContainer]}>
         <OutsideView
           childRef={childRef}
           onPressOutside={() => {

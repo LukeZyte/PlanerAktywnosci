@@ -3,14 +3,12 @@ import FlatIconButton from "../../UI/FlatIconButton";
 import TextUI from "../../UI/TextUI";
 import { Ionicons } from "@expo/vector-icons";
 import CategoriesModal from "../../Cateories/CategoriesModal";
-import { GlobalStyles } from "../../../constants/styles";
 import { useContext, useState } from "react";
 import { ActivityCategoriesContext } from "../../../store/activityCategoriesContext";
-import { ThemeContext } from "../../../store/themeContext";
+import { useTheme } from "@react-navigation/native";
 
 const CategoryPickerForm = ({ selectedCategoryId, setSelectedCategoryId }) => {
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors } = useTheme();
 
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
@@ -30,13 +28,15 @@ const CategoryPickerForm = ({ selectedCategoryId, setSelectedCategoryId }) => {
     >
       <View style={styles.sectionContainer}>
         <View style={{ flexDirection: "row" }}>
-          <Ionicons name="cube" size={20} color={color.text} />
+          <Ionicons name="cube" size={20} color={colors.text} />
           <TextUI style={styles.categoriesLabel}>
             {!selectedCategoryId ? "Wybierz Kategorię" : "Zmień kategorię"}
           </TextUI>
         </View>
         <View>
-          <TextUI style={styles.categoryMessageText}>
+          <TextUI
+            style={[styles.categoryMessageText, { color: colors.primary700 }]}
+          >
             {selectedCategory ? selectedCategory.name : "Nie wybrano"}
           </TextUI>
         </View>
@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   categoryMessageText: {
-    color: GlobalStyles.colors.primary700,
     fontSize: 16,
     fontWeight: "bold",
   },

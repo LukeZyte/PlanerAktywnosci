@@ -31,7 +31,13 @@ const InputsForm = ({
       <Input
         style={[
           styles.descInput,
-          !enteredDesc.isValid ? styles.invalidDesc : null,
+          !enteredDesc.isValid
+            ? (styles.invalidDesc,
+              {
+                backgroundColor: colors.wrong200,
+                borderColor: colors.wrong500,
+              })
+            : null,
         ]}
         label="Opis"
         numberOfLines={4}
@@ -53,9 +59,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   invalidDesc: {
-    backgroundColor: GlobalStyles.colors.wrong200,
     borderWidth: 1,
-    borderColor: GlobalStyles.colors.wrong500,
   },
   descInput: {
     textAlignVertical: "top",

@@ -3,9 +3,7 @@ import FlatIconButton from "../../UI/FlatIconButton";
 import TextUI from "../../UI/TextUI";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemeContext } from "../../../store/themeContext";
-import { useContext, useState } from "react";
-import { GlobalStyles } from "../../../constants/styles";
+import { useTheme } from "@react-navigation/native";
 
 const DatePickerForm = ({
   dateNotChoosen,
@@ -16,8 +14,7 @@ const DatePickerForm = ({
   isDatePickerVisible,
   setDatePickerVisibility,
 }) => {
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors } = useTheme();
 
   function dateHandler(date) {
     setDateNotChoosen(false);
@@ -37,7 +34,7 @@ const DatePickerForm = ({
     >
       <View style={styles.sectionContainer}>
         <View style={{ flexDirection: "row" }}>
-          <Ionicons name="calendar" size={20} color={color.text} />
+          <Ionicons name="calendar" size={20} color={colors.text} />
           <TextUI style={styles.dateLabel}>
             {!date.choosen ? "Wybierz termin" : "Zmień termin"}
           </TextUI>
@@ -45,7 +42,11 @@ const DatePickerForm = ({
         <View>
           {date.choosen && (
             <TextUI
-              style={[styles.dateText, oldDate ? styles.oldDateText : null]}
+              style={[
+                styles.dateText,
+                { color: colors.primary700 },
+                oldDate ? { color: colors.wrong500 } : null,
+              ]}
             >
               {dateText}
             </TextUI>
@@ -54,8 +55,9 @@ const DatePickerForm = ({
             <TextUI
               style={[
                 styles.dateMessageText,
+                { color: colors.contentBg600 },
                 dateNotChoosen && {
-                  color: color.wrong500,
+                  color: colors.wrong500,
                   fontWeight: "bold",
                 },
               ]}
@@ -90,15 +92,10 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   dateText: {
-    color: GlobalStyles.colors.primary700,
     fontSize: 16,
     fontWeight: "bold",
   },
-  oldDateText: {
-    color: GlobalStyles.colors.wrong500,
-  },
   dateMessageText: {
-    color: GlobalStyles.colors.contentBg600,
     fontSize: 16,
     // fontWeight: "bold",
   },

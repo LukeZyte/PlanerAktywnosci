@@ -8,10 +8,11 @@ import { ThemeContext } from "../../../store/themeContext";
 import { useContext } from "react";
 import { getFormattedDate } from "../../../scripts/dates";
 import { ActivityCategoriesContext } from "../../../store/activityCategoriesContext";
+import { useTheme } from "@react-navigation/native";
 
 const DetailsCard = ({ activity, oldDate }) => {
   const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors } = useTheme();
 
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
   const category = actCategoriesCtx.actCategories.find(
@@ -23,11 +24,15 @@ const DetailsCard = ({ activity, oldDate }) => {
       <MenuLabel>Szczegóły</MenuLabel>
       <View style={styles.detailsContainer}>
         <View style={styles.iconText}>
-          <Ionicons name="calendar" size={20} color={color.text} />
+          <Ionicons name="calendar" size={20} color={colors.text} />
           <TextUI style={styles.detailsText}>Termin:</TextUI>
         </View>
         <TextUI
-          style={[styles.detailsElement, oldDate && { color: color.wrong500 }]}
+          style={[
+            styles.detailsElement,
+            { color: colors.primary700 },
+            oldDate && { color: colors.wrong500 },
+          ]}
         >
           {getFormattedDate(new Date(activity.date))}
         </TextUI>
@@ -35,10 +40,10 @@ const DetailsCard = ({ activity, oldDate }) => {
 
       <View style={styles.detailsContainer}>
         <View style={styles.iconText}>
-          <Ionicons name="cube" size={20} color={color.text} />
+          <Ionicons name="cube" size={20} color={colors.text} />
           <TextUI style={styles.detailsText}>Kategoria:</TextUI>
         </View>
-        <TextUI style={styles.detailsElement}>
+        <TextUI style={[styles.detailsElement, { color: colors.primary700 }]}>
           {category ? category.name : "Brak"}
         </TextUI>
       </View>
@@ -68,7 +73,6 @@ const styles = StyleSheet.create({
   },
   detailsElement: {
     fontSize: 16,
-    color: GlobalStyles.colors.primary700,
     fontWeight: "bold",
   },
 });

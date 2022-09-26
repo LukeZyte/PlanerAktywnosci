@@ -7,6 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import TextUI from "../UI/TextUI";
 import { useContext } from "react";
 import { ThemeContext } from "../../store/themeContext";
+import { useTheme } from "@react-navigation/native";
 
 function CategoryItem(props, { id }) {
   let categoryIcon = <Entypo name="cross" size={24} color={props.color} />;
@@ -45,14 +46,13 @@ function CategoryItem(props, { id }) {
     props.onSetModalVisible(false);
   }
 
-  const themeCtx = useContext(ThemeContext);
-  const color = themeCtx.currentTheme.colors;
+  const { colors, border } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { borderRadius: border.radius }]}>
       <Pressable
         onPress={categoryPressHandler}
-        android_ripple={{ color: color.contentBg400 }}
+        android_ripple={{ color: colors.contentBg400 }}
       >
         <View style={styles.innerContainer}>
           <View style={styles.left}>{categoryIcon}</View>
@@ -70,7 +70,6 @@ export default CategoryItem;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: GlobalStyles.border.radius,
     overflow: "hidden",
   },
   innerContainer: {
