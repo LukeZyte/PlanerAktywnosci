@@ -12,9 +12,8 @@ import InputsForm from "./InputsForm";
 import DatePickerForm from "./DatePickerForm";
 import CategoryPickerForm from "./CategoryPickerForm";
 
-function AddActivity(props) {
+function AddActivity({ selectedActivityId }) {
   const activitiesCtx = useContext(ActivitiesContext);
-  const selectedActivityId = props.selectedActivityId;
   const isEditing = !!selectedActivityId;
   const navigation = useNavigation();
 

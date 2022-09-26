@@ -1,6 +1,5 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
 import Card from "../../UI/Card";
 import MenuLabel from "../../UI/MenuLabel";
 import TextUI from "../../UI/TextUI";

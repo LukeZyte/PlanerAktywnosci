@@ -9,7 +9,7 @@ export const ActivitiesContext = createContext({
   updateActivity: (id, updateActivity) => {},
 });
 
-function ActivitiesContextProvider(props) {
+function ActivitiesContextProvider({ children }) {
   //AsyncStorage
   const getActivitiesFromStore = async () => {
     try {
@@ -83,7 +83,7 @@ function ActivitiesContextProvider(props) {
 
   return (
     <ActivitiesContext.Provider value={value}>
-      {props.children}
+      {children}
     </ActivitiesContext.Provider>
   );
 }

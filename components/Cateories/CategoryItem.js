@@ -9,41 +9,44 @@ import { useContext } from "react";
 import { ThemeContext } from "../../store/themeContext";
 import { useTheme } from "@react-navigation/native";
 
-function CategoryItem(props, { id }) {
-  let categoryIcon = <Entypo name="cross" size={24} color={props.color} />;
+function CategoryItem({
+  id,
+  color,
+  name,
+  icon,
+  onSetModalVisible,
+  onSetSelectedCategoryId,
+}) {
+  let categoryIcon = <Entypo name="cross" size={24} color={color} />;
 
-  switch (props.icon) {
+  switch (icon) {
     case "book-open":
-      categoryIcon = (
-        <FontAwesome5 name="book-open" size={20} color={props.color} />
-      );
+      categoryIcon = <FontAwesome5 name="book-open" size={20} color={color} />;
       break;
     case "file":
-      categoryIcon = <FontAwesome name="file" size={20} color={props.color} />;
+      categoryIcon = <FontAwesome name="file" size={20} color={color} />;
       break;
     case "graduation-cap":
       categoryIcon = (
-        <FontAwesome5 name="graduation-cap" size={20} color={props.color} />
+        <FontAwesome5 name="graduation-cap" size={20} color={color} />
       );
       break;
     case "chart-pie":
-      categoryIcon = (
-        <FontAwesome5 name="chart-pie" size={20} color={props.color} />
-      );
+      categoryIcon = <FontAwesome5 name="chart-pie" size={20} color={color} />;
       break;
     case "star":
-      categoryIcon = <AntDesign name="star" size={20} color={props.color} />;
+      categoryIcon = <AntDesign name="star" size={20} color={color} />;
       break;
   }
 
   function categoryPressHandler() {
     if (id !== "none") {
-      props.onSetSelectedCategoryId(props.id);
+      onSetSelectedCategoryId(id);
     } else {
       Alert.alert("WYBRANO NONE");
       return;
     }
-    props.onSetModalVisible(false);
+    onSetModalVisible(false);
   }
 
   const { colors, border } = useTheme();
@@ -57,7 +60,7 @@ function CategoryItem(props, { id }) {
         <View style={styles.innerContainer}>
           <View style={styles.left}>{categoryIcon}</View>
           <View style={styles.right}>
-            <TextUI style={styles.categoryText}>{props.name}</TextUI>
+            <TextUI style={styles.categoryText}>{name}</TextUI>
           </View>
         </View>
       </Pressable>

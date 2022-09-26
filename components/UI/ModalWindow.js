@@ -3,26 +3,22 @@ import { useRef } from "react";
 import { Modal, StyleSheet, View } from "react-native";
 import OutsideView from "react-native-detect-press-outside";
 
-function ModalWindow(props) {
+function ModalWindow({ onModalVisible, onSetModalVisible, children }) {
   const childRef = useRef();
   const { colors } = useTheme();
 
   return (
-    <Modal
-      transparent={true}
-      visible={props.onModalVisible}
-      animationType={"fade"}
-    >
+    <Modal transparent={true} visible={onModalVisible} animationType={"fade"}>
       <View style={[styles.rootContainer]}>
         <OutsideView
           childRef={childRef}
           onPressOutside={() => {
-            props.onSetModalVisible(false);
+            onSetModalVisible(false);
           }}
           style={styles.rootContainer}
         >
           <View style={styles.innerContainer}>
-            <View ref={childRef}>{props.children}</View>
+            <View ref={childRef}>{children}</View>
           </View>
         </OutsideView>
       </View>

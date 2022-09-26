@@ -2,15 +2,13 @@ import { useContext, useLayoutEffect, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import ActivityItem from "./ActivityItem";
 import { ActivitiesContext } from "../../store/activitiesContext";
-import { GlobalStyles } from "../../constants/styles";
-import { ThemeContext } from "../../store/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ShowExpiredActivitiesButton from "./showExpiredActivitiesButton";
 import { useTheme } from "@react-navigation/native";
 
 function ActivitiesList() {
   const activitiesCtx = useContext(ActivitiesContext);
-  const { colors, border } = useTheme();
+  const { colors } = useTheme();
 
   let today = new Date();
   let activeActivities = activitiesCtx.activities.filter((activity) => {

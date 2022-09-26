@@ -2,13 +2,11 @@ import { useTheme } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import TextUI from "./TextUI";
 
-function MenuLabel(props) {
+function MenuLabel({ style, children }) {
   const { colors } = useTheme();
   return (
-    <TextUI
-      style={[styles.labelText, { color: colors.primary700 }, props.style]}
-    >
-      {props.children}
+    <TextUI style={[styles.labelText, { color: colors.primary700 }, style]}>
+      {children}
     </TextUI>
   );
 }

@@ -1,9 +1,8 @@
 import { useTheme } from "@react-navigation/native";
 import { Pressable, StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
 import TextUI from "./TextUI";
 
-function CircleButton(props) {
+function CircleButton({ style, onPress, children }) {
   const { colors, border } = useTheme();
 
   return (
@@ -11,15 +10,15 @@ function CircleButton(props) {
       style={[
         styles.circleContainer,
         { backgroundColor: colors.primary, elevation: border.elevationBig },
-        props.style,
+        style,
       ]}
     >
       <Pressable
-        onPress={props.onPress}
+        onPress={onPress}
         android_ripple={{ color: colors.primary900 }}
       >
         <TextUI style={[styles.text, { color: colors.text }]}>
-          {props.children}
+          {children}
         </TextUI>
       </Pressable>
     </View>

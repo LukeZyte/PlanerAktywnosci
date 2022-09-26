@@ -1,13 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { GlobalStyles } from "../../constants/styles";
 import TextUI from "../UI/TextUI";
-import { useContext } from "react";
-import { ThemeContext } from "../../store/themeContext";
 import { useTheme } from "@react-navigation/native";
 
 function EmptyListMessage() {
-  const themeCtx = useContext(ThemeContext);
   const { colors } = useTheme();
 
   return (

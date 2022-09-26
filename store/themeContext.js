@@ -9,7 +9,7 @@ export const ThemeContext = createContext({
   toggleThemeMode: () => {},
 });
 
-function ThemeContextProvider(props) {
+function ThemeContextProvider({ children }) {
   const [darkTheme, setDarkTheme] = useState(true);
 
   const getThemeFromStore = async () => {
@@ -53,9 +53,7 @@ function ThemeContextProvider(props) {
   };
 
   return (
-    <ThemeContext.Provider value={value}>
-      {props.children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 

@@ -2,7 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import { Pressable, StyleSheet, View } from "react-native";
 import TextUI from "../UI/TextUI";
 
-function Button(props) {
+function Button({ style, onPress, children }) {
   const { colors, border } = useTheme();
 
   return (
@@ -14,15 +14,15 @@ function Button(props) {
           borderRadius: border.radius,
           elevation: border.elevationBig,
         },
-        props.style,
+        style,
       ]}
     >
       <Pressable
-        onPress={props.onPress}
+        onPress={onPress}
         android_ripple={{ color: colors.primary900 }}
       >
         <TextUI style={[styles.text, { color: colors.headerText }]}>
-          {props.children}
+          {children}
         </TextUI>
       </Pressable>
     </View>

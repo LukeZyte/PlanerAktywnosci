@@ -1,19 +1,17 @@
 import { useTheme } from "@react-navigation/native";
 import { Pressable, StyleSheet, View } from "react-native";
 
-function HeaderButton(props) {
+function HeaderButton({ style, onPress, children }) {
   const { colors, border } = useTheme();
 
   return (
-    <View
-      style={[styles.container, { borderRadius: border.radius }, props.style]}
-    >
+    <View style={[styles.container, { borderRadius: border.radius }, style]}>
       <Pressable
-        onPress={props.onPress}
+        onPress={onPress}
         android_ripple={{ color: colors.primary900 }}
         style={{ flex: 1 }}
       >
-        {props.children}
+        {children}
       </Pressable>
     </View>
   );

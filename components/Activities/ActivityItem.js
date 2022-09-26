@@ -8,13 +8,13 @@ import { ActivityCategoriesContext } from "../../store/activityCategoriesContext
 import { getSimpleDate } from "../../scripts/dates";
 import TextUI from "../UI/TextUI";
 
-function ActivityItem(props) {
+function ActivityItem({ date, typeId, id, titleStyle, title }) {
   const navigation = useNavigation();
 
   const { colors, border } = useTheme();
 
   let today = new Date();
-  let activityDay = new Date(props.date);
+  let activityDay = new Date(date);
   let daysLeftInMs = activityDay.getTime() - today.getTime();
   let daysLeft = Math.ceil(daysLeftInMs / (1000 * 3600 * 24));
   daysLeft = daysLeft.toString();
@@ -45,7 +45,7 @@ function ActivityItem(props) {
   let categoryIcon = <View style={{ height: iconSize }}></View>;
 
   let category = actCategoriesCtx.actCategories.find(
-    (item) => item.id === props.typeId
+    (item) => item.id === typeId
   );
   if (category) {
     switch (category.icon) {
@@ -91,7 +91,7 @@ function ActivityItem(props) {
 
   let categoryView = (
     <View style={[styles.categoryContainer]}>
-      <TextUI style={styles.categoryName}>{getSimpleDate(props.date)}</TextUI>
+      <TextUI style={styles.categoryName}>{getSimpleDate(date)}</TextUI>
     </View>
   );
 
@@ -99,7 +99,7 @@ function ActivityItem(props) {
     categoryView = (
       <View style={[styles.categoryContainer]}>
         <TextUI style={[styles.categoryName, { color: category.color }]}>
-          {`${category.name}: ${getSimpleDate(props.date)}`}
+          {`${category.name}: ${getSimpleDate(date)}`}
         </TextUI>
       </View>
     );
@@ -125,14 +125,12 @@ function ActivityItem(props) {
         style={styles.innerContainer}
         onPress={() =>
           navigation.navigate("ActivityDetailsScreen", {
-            activityId: props.id,
+            activityId: id,
           })
         }
       >
         <View style={styles.leftSide}>
-          <TextUI style={[styles.title, props.titleStyle]}>
-            {props.title}
-          </TextUI>
+          <TextUI style={[styles.title, titleStyle]}>{title}</TextUI>
           <View style={styles.categoryInfoContainer}>{categoryView}</View>
         </View>
         <View style={styles.rightSide}>

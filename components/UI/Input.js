@@ -3,13 +3,24 @@ import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import TextUI from "./TextUI";
 
-function Input(props) {
+function Input({
+  styleLabel,
+  label,
+  style,
+  placeholder,
+  placeholderTextColor,
+  value,
+  onChangeText,
+  multiline,
+  numberOfLines,
+  blurOnSubmit,
+}) {
   const [focus, setFocus] = useState(false);
   const { colors, border } = useTheme();
 
   return (
     <View style={styles.container}>
-      <TextUI style={[styles.label, props.styleLabel]}>{props.label}</TextUI>
+      <TextUI style={[styles.label, styleLabel]}>{label}</TextUI>
       <TextInput
         style={[
           styles.input,
@@ -25,19 +36,17 @@ function Input(props) {
             backgroundColor: colors.bgPrimary200,
             borderColor: colors.primary,
           },
-          props.style,
+          style,
         ]}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         placeholderTextColor={
-          props.placeholderTextColor
-            ? props.placeholderTextColor
-            : colors.contentBg600
+          placeholderTextColor ? placeholderTextColor : colors.contentBg600
         }
-        value={props.value}
-        onChangeText={props.onChangeText}
-        multiline={props.multiline}
-        numberOfLines={props.numberOfLines}
-        blurOnSubmit={props.blurOnSubmit}
+        value={value}
+        onChangeText={onChangeText}
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        blurOnSubmit={blurOnSubmit}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
       ></TextInput>

@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { useContext } from "react";
+import { FlatList, StyleSheet } from "react-native";
 import { ActivityCategoriesContext } from "../../store/activityCategoriesContext";
 import CategoryItem from "./CategoryItem";
 import Card from "../UI/Card";
@@ -9,14 +8,14 @@ import ModalWindow from "../UI/ModalWindow";
 import TextUI from "../UI/TextUI";
 import { useTheme } from "@react-navigation/native";
 
-function CategoriesModal(props) {
+function CategoriesModal({ onSetModalVisibility, onModalVisibility }) {
   const { colors } = useTheme();
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
   return (
     <ModalWindow
-      onSetModalVisible={props.onSetModalVisibility}
-      onModalVisible={props.onModalVisibility}
+      onSetModalVisible={onSetModalVisibility}
+      onModalVisible={onModalVisibility}
     >
       <Card style={styles.card}>
         <TextUI style={styles.title}>Wybór kategorii</TextUI>
@@ -31,14 +30,14 @@ function CategoriesModal(props) {
             return (
               <CategoryItem
                 {...itemData.item}
-                onSetSelectedCategoryId={props.onSetSelectedCategoryId}
-                onSetModalVisible={props.onSetModalVisibility}
+                onSetSelectedCategoryId={onSetSelectedCategoryId}
+                onSetModalVisible={onSetModalVisibility}
               />
             );
           }}
         />
         <FlatButton
-          onPress={props.onSetModalVisibility}
+          onPress={onSetModalVisibility}
           textStyle={{ color: colors.primary700 }}
         >
           Anuluj

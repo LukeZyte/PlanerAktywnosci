@@ -28,11 +28,9 @@ export default function Navigation() {
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
-              // backgroundColor: GlobalStyles.colors.headerBg,
               backgroundColor: currentTheme.colors.headerBg,
             },
             headerTintColor: currentTheme.colors.headerText,
-            // headerTitleAlign: "center",
           }}
         >
           <Stack.Screen

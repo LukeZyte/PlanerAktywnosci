@@ -13,7 +13,7 @@ const DUMMY_CATEGORIES = [
   // { id: "none", name: "Brak", color: "red", icon: null },
 ];
 
-function ActCategoriesContextProvider(props) {
+function ActCategoriesContextProvider({ children }) {
   const [actCategories, setActCategories] = useState(DUMMY_CATEGORIES);
 
   const value = {
@@ -22,7 +22,7 @@ function ActCategoriesContextProvider(props) {
 
   return (
     <ActivityCategoriesContext.Provider value={value}>
-      {props.children}
+      {children}
     </ActivityCategoriesContext.Provider>
   );
 }

@@ -1,17 +1,14 @@
 import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
 import { Ionicons } from "@expo/vector-icons";
 import Card from "../../UI/Card";
 import MenuLabel from "../../UI/MenuLabel";
 import TextUI from "../../UI/TextUI";
-import { ThemeContext } from "../../../store/themeContext";
 import { useContext } from "react";
 import { getFormattedDate } from "../../../scripts/dates";
 import { ActivityCategoriesContext } from "../../../store/activityCategoriesContext";
 import { useTheme } from "@react-navigation/native";
 
 const DetailsCard = ({ activity, oldDate }) => {
-  const themeCtx = useContext(ThemeContext);
   const { colors } = useTheme();
 
   const actCategoriesCtx = useContext(ActivityCategoriesContext);

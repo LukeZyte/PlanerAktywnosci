@@ -11,9 +11,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
-function ActivityDetailsScreen(props) {
+function ActivityDetailsScreen({ route }) {
   const activitiesCtx = useContext(ActivitiesContext);
-  const selectedActivityId = props.route.params?.activityId;
+  const selectedActivityId = route.params?.activityId;
   const navigation = useNavigation();
 
   useLayoutEffect(() => {

@@ -1,7 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
 
-function Card(props) {
+function Card({ style, children }) {
   const { colors, border } = useTheme();
 
   return (
@@ -13,10 +13,10 @@ function Card(props) {
           borderRadius: border.radius,
           elevation: border.elevation,
         },
-        props.style,
+        style,
       ]}
     >
-      {props.children}
+      {children}
     </View>
   );
 }

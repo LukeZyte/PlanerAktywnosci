@@ -3,8 +3,8 @@ import { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AddActivity from "../components/Activities/AddActivityForm/AddActivity";
 
-function AddActivityScreen(props) {
-  const selectedActivityId = props.route.params?.editingId;
+function AddActivityScreen({ route }) {
+  const selectedActivityId = route.params?.editingId;
   const isEditing = !!selectedActivityId;
 
   const navigation = useNavigation();

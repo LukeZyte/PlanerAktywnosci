@@ -2,7 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import { Pressable, StyleSheet, View } from "react-native";
 import TextUI from "./TextUI";
 
-function FlatButton(props) {
+function FlatButton({ style, onPress, android_ripple, children, textStyle }) {
   const { colors, border } = useTheme();
 
   return (
@@ -14,19 +14,17 @@ function FlatButton(props) {
           borderColor: colors.primary,
           borderWidth: 1,
         },
-        props.style,
+        style,
       ]}
     >
       <Pressable
-        onPress={props.onPress}
+        onPress={onPress}
         android_ripple={
-          props.android_ripple
-            ? props.android_ripple
-            : { color: colors.contentBg400 }
+          android_ripple ? android_ripple : { color: colors.contentBg400 }
         }
       >
-        <TextUI style={[styles.text, { color: colors.text }, props.textStyle]}>
-          {props.children}
+        <TextUI style={[styles.text, { color: colors.text }, textStyle]}>
+          {children}
         </TextUI>
       </Pressable>
     </View>
