@@ -1,12 +1,9 @@
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import TextUI from "../UI/TextUI";
-import { useContext } from "react";
-import { ThemeContext } from "../../store/themeContext";
 import { useTheme } from "@react-navigation/native";
 
 function CategoryItem({
@@ -43,7 +40,6 @@ function CategoryItem({
     if (id !== "none") {
       onSetSelectedCategoryId(id);
     } else {
-      Alert.alert("WYBRANO NONE");
       return;
     }
     onSetModalVisible(false);

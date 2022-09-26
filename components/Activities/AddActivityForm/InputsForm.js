@@ -1,6 +1,5 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
-import { GlobalStyles } from "../../../constants/styles";
 import Input from "../../UI/Input";
 
 const InputsForm = ({

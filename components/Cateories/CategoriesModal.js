@@ -22,7 +22,9 @@ function CategoriesModal({
       onModalVisible={onModalVisibility}
     >
       <Card style={styles.card}>
-        <TextUI style={styles.title}>Wybór kategorii</TextUI>
+        <TextUI style={[styles.title, { color: colors.primary }]}>
+          Wybór kategorii
+        </TextUI>
         <FlatList
           style={styles.list}
           data={[
@@ -42,7 +44,7 @@ function CategoriesModal({
         />
         <FlatButton
           onPress={onSetModalVisibility}
-          textStyle={{ color: colors.primary700 }}
+          textStyle={{ color: colors.text }}
         >
           Anuluj
         </FlatButton>
@@ -63,8 +65,9 @@ const styles = StyleSheet.create({
   title: {
     justifyContent: "center",
     alignItems: "center",
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
+    marginBottom: 8,
   },
   list: {
     marginVertical: 16,

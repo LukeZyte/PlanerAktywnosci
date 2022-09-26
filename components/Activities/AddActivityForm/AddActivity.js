@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Button from "../../UI/Button";
 import { useContext, useState } from "react";
 import { ActivitiesContext } from "../../../store/activitiesContext";
@@ -11,6 +11,7 @@ import TextUI from "../../UI/TextUI";
 import InputsForm from "./InputsForm";
 import DatePickerForm from "./DatePickerForm";
 import CategoryPickerForm from "./CategoryPickerForm";
+import AlertUI from "../../UI/AlertUI";
 
 function AddActivity({ selectedActivityId }) {
   const activitiesCtx = useContext(ActivitiesContext);
@@ -45,20 +46,14 @@ function AddActivity({ selectedActivityId }) {
   let oldDate = today.getTime() > activityDate.getTime() + 1000 * 3600 * 24;
 
   // FORM HANDLER //
+  const [showOldDateAlertUI, setShowOldDateAlertUI] = useState(false);
+  const [showEditOldDateAlertUI, setShowEditOldDateAlertUI] = useState(false);
+
   function cancelHandler() {
     navigation.goBack();
   }
-  function submitHandler() {
-    const addActivity = () => {
-      activitiesCtx.addActivity({
-        id: Math.random(),
-        title: enteredTitle.value,
-        description: enteredDesc.value,
-        date: date.value,
-        typeId: selectedCategoryId,
-      });
-    };
 
+  function submitHandler() {
     let titleOK = true;
     let descOK = true;
     let dateOK = true;
@@ -77,65 +72,29 @@ function AddActivity({ selectedActivityId }) {
     let formOK = titleOK && descOK && dateOK;
     if (formOK && !isEditing) {
       if (oldDate) {
-        Alert.alert(
-          "Przedawniony termin!",
-          "Wybrano przedawniony termin aktyności. Czy chcesz dodać aktywność mimo to?",
-          [
-            {
-              text: "Cofnij",
-              onPress: () => {
-                setDateNotChoosen(true);
-                setDatePickerVisibility(true);
-                setDate(new Date());
-              },
-            },
-            {
-              text: "Potwierdź",
-              onPress: () => {
-                addActivity();
-                navigation.navigate("ActivitiesScreen");
-              },
-            },
-          ]
-        );
+        setShowOldDateAlertUI(true);
         return;
       }
-      addActivity();
+      activitiesCtx.addActivity({
+        id: Math.random(),
+        title: enteredTitle.value,
+        description: enteredDesc.value,
+        date: date.value,
+        typeId: selectedCategoryId,
+      });
       navigation.navigate("ActivitiesScreen");
     } else if (formOK && isEditing) {
-      const updateActivity = () => {
-        activitiesCtx.updateActivity(selectedActivityId, {
-          id: activity.id,
-          title: enteredTitle.value,
-          description: enteredDesc.value,
-          date: date.value,
-          typeId: selectedCategoryId,
-        });
-      };
       if (oldDate) {
-        Alert.alert(
-          "Przedawniony termin!",
-          "Wybrano przedawniony termin aktyności. Czy chcesz edytować aktywność mimo to?",
-          [
-            {
-              text: "Cofnij",
-              onPress: () => {
-                setDatePickerVisibility(true);
-                setDate(new Date());
-              },
-            },
-            {
-              text: "Zatwierdź",
-              onPress: () => {
-                updateActivity();
-                navigation.navigate("ActivitiesScreen");
-              },
-            },
-          ]
-        );
+        setShowEditOldDateAlertUI(true);
         return;
       }
-      updateActivity();
+      activitiesCtx.updateActivity(selectedActivityId, {
+        id: activity.id,
+        title: enteredTitle.value,
+        description: enteredDesc.value,
+        date: date.value,
+        typeId: selectedCategoryId,
+      });
       navigation.navigate("ActivitiesScreen");
     }
   }
@@ -167,6 +126,48 @@ function AddActivity({ selectedActivityId }) {
           isDatePickerVisible={isDatePickerVisible}
           setDatePickerVisibility={setDatePickerVisibility}
         />
+        {showOldDateAlertUI && (
+          <AlertUI
+            onSetModalVisibility={setShowOldDateAlertUI}
+            onModalVisibility={showOldDateAlertUI}
+            title="Przedawniony termin!"
+            message="Wybrano przedawniony termin aktyności. Czy chcesz dodać aktywność mimo to?"
+            cancelText="Cofnij"
+            confirmText="Potwierdź"
+            onConfirm={() => {
+              navigation.navigate("ActivitiesScreen");
+              activitiesCtx.addActivity({
+                id: Math.random(),
+                title: enteredTitle.value,
+                description: enteredDesc.value,
+                date: date.value,
+                typeId: selectedCategoryId,
+              });
+            }}
+            onCancel={setShowOldDateAlertUI}
+          />
+        )}
+        {showEditOldDateAlertUI && (
+          <AlertUI
+            onSetModalVisibility={setShowEditOldDateAlertUI}
+            onModalVisibility={showEditOldDateAlertUI}
+            title="Przedawniony termin!"
+            message="Wybrano przedawniony termin aktywności. Czy chcesz edytować aktywność mimo to?"
+            cancelText="Cofnij"
+            confirmText="Potwierdź"
+            onConfirm={() => {
+              navigation.navigate("ActivitiesScreen");
+              activitiesCtx.updateActivity(selectedActivityId, {
+                id: activity.id,
+                title: enteredTitle.value,
+                description: enteredDesc.value,
+                date: date.value,
+                typeId: selectedCategoryId,
+              });
+            }}
+            onCancel={setShowEditOldDateAlertUI}
+          />
+        )}
         <CategoryPickerForm
           selectedCategoryId={selectedCategoryId}
           setSelectedCategoryId={setSelectedCategoryId}

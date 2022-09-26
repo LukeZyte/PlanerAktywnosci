@@ -5,7 +5,7 @@ function HeaderButton({ style, onPress, children }) {
   const { colors, border } = useTheme();
 
   return (
-    <View style={[styles.container, { borderRadius: border.radius }, style]}>
+    <View style={[styles.container, { borderRadius: border.round }, style]}>
       <Pressable
         onPress={onPress}
         android_ripple={{ color: colors.primary900 }}

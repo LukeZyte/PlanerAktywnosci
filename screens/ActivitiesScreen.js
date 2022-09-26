@@ -6,7 +6,6 @@ import { useContext, useLayoutEffect } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import CircleButton from "../components/UI/CircleButton";
 import EmptyListMessage from "../components/Activities/EmptyListMessage";
-import { GlobalStyles } from "../constants/styles";
 import { ThemeContext } from "../store/themeContext";
 import HeaderButton from "../components/UI/HeaderButton";
 import TextUI from "../components/UI/TextUI";
