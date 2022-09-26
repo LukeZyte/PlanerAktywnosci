@@ -1,7 +1,7 @@
 const primary = "#00d339";
 const primary300 = "#00d339";
 const primary700 = "#00d339";
-const primary900 = "#00d339";
+const primary900 = "#00a82c";
 
 export const GlobalStyles = {
   colors: {

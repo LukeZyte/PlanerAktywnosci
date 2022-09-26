@@ -43,6 +43,7 @@ const TopButtons = ({ selectedActivityId, activity }) => {
       </FlatButton>
       <FlatButton
         style={[styles.actionButtons, { borderRadius: border.round }]}
+        android_ripple={{ color: colors.bgPrimary200 }}
         onPress={editHandler}
       >
         <View
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
   editText: {
     marginLeft: 8,
     fontWeight: "bold",
-    color: GlobalStyles.colors.primary700,
   },
   deleteText: {
     marginLeft: 8,
