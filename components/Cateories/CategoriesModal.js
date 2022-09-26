@@ -8,7 +8,11 @@ import ModalWindow from "../UI/ModalWindow";
 import TextUI from "../UI/TextUI";
 import { useTheme } from "@react-navigation/native";
 
-function CategoriesModal({ onSetModalVisibility, onModalVisibility }) {
+function CategoriesModal({
+  onSetModalVisibility,
+  onModalVisibility,
+  onSetSelectedCategoryId,
+}) {
   const { colors } = useTheme();
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 

@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import FlatButton from "../../UI/FlatButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import TextUI from "../../UI/TextUI";
@@ -13,8 +13,25 @@ const TopButtons = ({ selectedActivityId, activity }) => {
   const navigation = useNavigation();
 
   function deleteHandler() {
-    activitiesCtx.deleteActivity(activity.id);
-    navigation.navigate("ActivitiesScreen");
+    Alert.alert(
+      `Usunąć aktywność "${activity.title}"`,
+      "Tej operacji nie da się cofnąć.",
+      [
+        {
+          text: "Anuluj",
+          onPress: () => {
+            return;
+          },
+        },
+        {
+          text: "Usuń",
+          onPress: () => {
+            navigation.navigate("ActivitiesScreen");
+            activitiesCtx.deleteActivity(activity.id);
+          },
+        },
+      ]
+    );
   }
   function editHandler() {
     navigation.navigate("AddActivityScreen", {
