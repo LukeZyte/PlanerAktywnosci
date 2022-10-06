@@ -74,6 +74,11 @@ function ActivityDetailsScreen({ route }) {
           />
         );
         break;
+      case "flask":
+        categoryIcon = (
+          <FontAwesome5 name="flask" size={iconSize} color={category.color} />
+        );
+        break;
       case "star":
         categoryIcon = (
           <AntDesign name="star" size={iconSize} color={category.color} />

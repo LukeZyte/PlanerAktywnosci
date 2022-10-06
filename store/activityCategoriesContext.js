@@ -5,11 +5,12 @@ export const ActivityCategoriesContext = createContext({
 });
 
 const DUMMY_CATEGORIES = [
-  { id: "c1", name: "Kartkówka", color: "#2196F3", icon: "file" },
+  { id: "c1", name: "Kartkówka", color: "#2175f3", icon: "file" },
   { id: "c2", name: "Kolokwium", color: "#FF9800", icon: "book-open" },
   { id: "c3", name: "Egzamin", color: "red", icon: "graduation-cap" },
   { id: "c4", name: "Projekt", color: "#00d339", icon: "chart-pie" },
-  { id: "c5", name: "Inne", color: "#ff66ff", icon: "star" },
+  { id: "c5", name: "Laboratiorium", color: "#00d9ff", icon: "flask" },
+  { id: "c6", name: "Inne", color: "#ff66ff", icon: "star" },
   // { id: "none", name: "Brak", color: "red", icon: null },
 ];
 

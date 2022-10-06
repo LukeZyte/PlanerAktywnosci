@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Button from "../../UI/Button";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ActivitiesContext } from "../../../store/activitiesContext";
 import FlatButton from "../../UI/FlatButton";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +17,13 @@ function AddActivity({ selectedActivityId }) {
   const activitiesCtx = useContext(ActivitiesContext);
   const isEditing = !!selectedActivityId;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+      setShowCancelAlertUI(true);
+    });
+  }, []);
 
   const activity = activitiesCtx.activities.find(
     (item) => item.id === selectedActivityId
@@ -48,9 +55,10 @@ function AddActivity({ selectedActivityId }) {
   // FORM HANDLER //
   const [showOldDateAlertUI, setShowOldDateAlertUI] = useState(false);
   const [showEditOldDateAlertUI, setShowEditOldDateAlertUI] = useState(false);
+  const [showCancelAlertUI, setShowCancelAlertUI] = useState(false);
 
   function cancelHandler() {
-    navigation.goBack();
+    setShowCancelAlertUI(true);
   }
 
   function submitHandler() {
@@ -107,8 +115,31 @@ function AddActivity({ selectedActivityId }) {
 
   const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategory);
 
+  const goBackHandler = () => {
+    navigation.addListener("beforeRemove", (e) => {
+      navigation.dispatch(e.data.action);
+    });
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
+      {showCancelAlertUI && (
+        <AlertUI
+          onSetModalVisibility={setShowCancelAlertUI}
+          onModalVisibility={showCancelAlertUI}
+          title={isEditing ? "Anulować edycję?" : "Anulować dodawanie?"}
+          message={
+            isEditing
+              ? "Wybranie opcji Potwierdź spowoduje, że wprowadzone zmiany nie zostaną zapisane."
+              : "Wybranie opcji Potwierdź spowoduje, że dodawana aktywność nie zostanie zapisana."
+          }
+          cancelText="Cofnij"
+          confirmText="Potwierdź"
+          onConfirm={goBackHandler}
+          onCancel={setShowCancelAlertUI}
+        />
+      )}
       <InputsForm
         enteredTitle={enteredTitle}
         setEnteredTitle={setEnteredTitle}

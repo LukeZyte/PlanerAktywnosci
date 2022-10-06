@@ -31,6 +31,9 @@ function CategoryItem({
     case "chart-pie":
       categoryIcon = <FontAwesome5 name="chart-pie" size={20} color={color} />;
       break;
+    case "flask":
+      categoryIcon = <FontAwesome5 name="flask" size={20} color={color} />;
+      break;
     case "star":
       categoryIcon = <AntDesign name="star" size={20} color={color} />;
       break;
