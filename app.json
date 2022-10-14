@@ -4,7 +4,7 @@
     "slug": "PlanerAktywnosci",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon_pa.png",
+    "icon": "./assets/icon2_pa.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash_pa.png",
@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon_pa.png",
+        "foregroundImage": "./assets/adaptive-icon2_pa.png",
         "backgroundColor": "#191919"
       },
       "package": "com.lukezyte.PlanerAktywnosci"

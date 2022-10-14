@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Button from "../../UI/Button";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useLayoutEffect } from "react";
 import { ActivitiesContext } from "../../../store/activitiesContext";
 import FlatButton from "../../UI/FlatButton";
 import { useNavigation } from "@react-navigation/native";
@@ -18,10 +18,9 @@ function AddActivity({ selectedActivityId }) {
   const isEditing = !!selectedActivityId;
   const navigation = useNavigation();
 
-  useEffect(() => {
-    navigation.addListener("beforeRemove", (e) => {
-      e.preventDefault();
-      setShowCancelAlertUI(true);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackVisible: false,
     });
   }, []);
 
@@ -116,9 +115,6 @@ function AddActivity({ selectedActivityId }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState(initialCategory);
 
   const goBackHandler = () => {
-    navigation.addListener("beforeRemove", (e) => {
-      navigation.dispatch(e.data.action);
-    });
     navigation.goBack();
   };
 
