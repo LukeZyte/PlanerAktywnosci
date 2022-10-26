@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View, Platform } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useContext } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -10,7 +10,7 @@ import TextUI from "../UI/TextUI";
 
 function ActivityItem({ date, typeId, id, titleStyle, title }) {
   const navigation = useNavigation();
-
+  const isIOS = Platform.OS === "ios";
   const { colors, border } = useTheme();
 
   let today = new Date();
@@ -127,7 +127,10 @@ function ActivityItem({ date, typeId, id, titleStyle, title }) {
     >
       <Pressable
         android_ripple={{ color: colors.contentBg400 }}
-        style={styles.innerContainer}
+        style={({ pressed }) => [
+          styles.innerContainer,
+          pressed && isIOS && { backgroundColor: colors.contentBg400 },
+        ]}
         onPress={() =>
           navigation.navigate("ActivityDetailsScreen", {
             activityId: id,

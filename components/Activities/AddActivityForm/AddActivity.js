@@ -231,12 +231,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   confirmButton: {
-    // width: 120,
     textAlign: "center",
     marginLeft: 24,
   },
   cancelButton: {
-    // width: 120,
     textAlign: "center",
   },
 });

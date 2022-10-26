@@ -31,6 +31,7 @@ const TopButtons = ({ selectedActivityId, activity }) => {
           { borderColor: colors.wrong500, borderRadius: border.round },
         ]}
         android_ripple={{ color: colors.wrong200 }}
+        pressedStyle={{ backgroundColor: colors.wrong200 }}
         onPress={deleteHandler}
       >
         <View
@@ -45,6 +46,7 @@ const TopButtons = ({ selectedActivityId, activity }) => {
       <FlatButton
         style={[styles.actionButtons, { borderRadius: border.round }]}
         android_ripple={{ color: colors.bgPrimary200 }}
+        pressedStyle={{ backgroundColor: colors.bgPrimary200 }}
         onPress={editHandler}
       >
         <View

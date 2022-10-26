@@ -1,9 +1,17 @@
 import { useTheme } from "@react-navigation/native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View, Platform } from "react-native";
 import TextUI from "./TextUI";
 
-function FlatButton({ style, onPress, android_ripple, children, textStyle }) {
+function FlatButton({
+  style,
+  onPress,
+  android_ripple,
+  children,
+  textStyle,
+  pressedStyle,
+}) {
   const { colors, border } = useTheme();
+  const isIOS = Platform.OS === "ios";
 
   return (
     <View
@@ -19,6 +27,12 @@ function FlatButton({ style, onPress, android_ripple, children, textStyle }) {
     >
       <Pressable
         onPress={onPress}
+        style={({ pressed }) => [
+          pressed &&
+            isIOS &&
+            !pressedStyle && { backgroundColor: colors.contentBg400 },
+          pressed && isIOS && pressedStyle && pressedStyle,
+        ]}
         android_ripple={
           android_ripple ? android_ripple : { color: colors.contentBg400 }
         }

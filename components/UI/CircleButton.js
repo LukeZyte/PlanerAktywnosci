@@ -1,9 +1,10 @@
 import { useTheme } from "@react-navigation/native";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View, Platform } from "react-native";
 import TextUI from "./TextUI";
 
 function CircleButton({ style, onPress, children }) {
   const { colors, border } = useTheme();
+  const isIOS = Platform.OS === "ios";
 
   return (
     <View
@@ -15,6 +16,9 @@ function CircleButton({ style, onPress, children }) {
     >
       <Pressable
         onPress={onPress}
+        style={({ pressed }) =>
+          pressed && isIOS && { backgroundColor: colors.primary900 }
+        }
         android_ripple={{ color: colors.primary900 }}
       >
         <TextUI style={[styles.text, { color: colors.text }]}>

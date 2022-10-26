@@ -15,7 +15,7 @@ function ActivitiesScreen() {
   const themeCtx = useContext(ThemeContext);
   const navigation = useNavigation();
   const activitiesNumber = activitiesCtx.activities.length;
-  const { colors } = useTheme();
+  const { colors, border } = useTheme();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -51,7 +51,12 @@ function ActivitiesScreen() {
           </TextUI>
         </CircleButton>
       </View>
-      <View style={[styles.author, { backgroundColor: colors.background }]}>
+      <View
+        style={[
+          styles.author,
+          { backgroundColor: colors.background, borderRadius: border.radius },
+        ]}
+      >
         <TextUI style={{ color: colors.contentBg400 }}>
           Autor: Łukasz Jarząb
         </TextUI>
@@ -89,7 +94,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     paddingHorizontal: 8,
-    borderRadius: 8,
     bottom: 4,
   },
 });
