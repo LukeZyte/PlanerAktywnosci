@@ -59,7 +59,7 @@ function ActivitiesList() {
           return <ActivityItem {...itemData.item} index={itemData.index} />;
         }}
       /> */}
-      {oldActivities.map((itemData) => {
+      {oldActivities.reverse().map((itemData) => {
         return (
           <ActivityItem
             key={itemData.id}

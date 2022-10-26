@@ -7,6 +7,7 @@ import FlatButton from "../UI/FlatButton";
 import ModalWindow from "../UI/ModalWindow";
 import TextUI from "../UI/TextUI";
 import { useTheme } from "@react-navigation/native";
+import { ThemeContext } from "../../store/themeContext";
 
 function CategoriesModal({
   onSetModalVisibility,
@@ -14,6 +15,7 @@ function CategoriesModal({
   onSetSelectedCategoryId,
 }) {
   const { colors } = useTheme();
+  const { darkTheme } = useContext(ThemeContext);
   const actCategoriesCtx = useContext(ActivityCategoriesContext);
 
   return (
@@ -29,7 +31,12 @@ function CategoriesModal({
           style={styles.list}
           data={[
             ...actCategoriesCtx.actCategories,
-            { id: "none", name: "Brak", color: "black", icon: null },
+            {
+              id: "none",
+              name: "Brak",
+              color: darkTheme ? "white" : "black",
+              icon: null,
+            },
           ]}
           keyExtractor={(item) => item.id}
           renderItem={(itemData) => {

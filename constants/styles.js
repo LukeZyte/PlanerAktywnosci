@@ -14,10 +14,12 @@ export const GlobalStyles = {
 
     // headerBg: "#00b248",
     headerBg: "#00d339",
+    // headerBg: "#ffffff",
     headerText: "white",
     headerButtonText: "white",
 
     text: "#000000",
+    submitButtonText: "white",
 
     background: "#eeeeee",
     contentBg100: "#ffffff",
@@ -46,11 +48,13 @@ export const GlobalStylesDark = {
 
     bgPrimary200: "#375045",
 
-    headerBg: "#181818",
+    // headerBg: "#181818",
+    headerBg: "black",
     headerText: "#ffffff",
     headerButtonText: "white",
 
     text: "#ffffff",
+    submitButtonText: "#black",
 
     background: "#000000",
     contentBg100: "#181818",

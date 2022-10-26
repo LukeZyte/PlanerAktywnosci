@@ -43,7 +43,7 @@ function CategoryItem({
     if (id !== "none") {
       onSetSelectedCategoryId(id);
     } else {
-      return;
+      onSetSelectedCategoryId(null);
     }
     onSetModalVisible(false);
   }

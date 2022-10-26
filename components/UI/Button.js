@@ -21,7 +21,7 @@ function Button({ style, onPress, children }) {
         onPress={onPress}
         android_ripple={{ color: colors.primary900 }}
       >
-        <TextUI style={[styles.text, { color: colors.headerText }]}>
+        <TextUI style={[styles.text, { color: colors.submitButtonText }]}>
           {children}
         </TextUI>
       </Pressable>

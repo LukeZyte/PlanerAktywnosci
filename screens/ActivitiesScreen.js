@@ -51,9 +51,11 @@ function ActivitiesScreen() {
           </TextUI>
         </CircleButton>
       </View>
-      <TextUI style={[styles.author, { color: colors.contentBg400 }]}>
-        Autor: Łukasz Jarząb
-      </TextUI>
+      <View style={[styles.author, { backgroundColor: colors.background }]}>
+        <TextUI style={{ color: colors.contentBg400 }}>
+          Autor: Łukasz Jarząb
+        </TextUI>
+      </View>
     </>
   );
 }
@@ -86,6 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     alignSelf: "center",
+    paddingHorizontal: 8,
+    borderRadius: 8,
     bottom: 4,
   },
 });

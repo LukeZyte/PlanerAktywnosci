@@ -37,7 +37,7 @@ const CategoryPickerForm = ({ selectedCategoryId, setSelectedCategoryId }) => {
           <TextUI
             style={[styles.categoryMessageText, { color: colors.primary700 }]}
           >
-            {selectedCategory ? selectedCategory.name : "Nie wybrano"}
+            {selectedCategory ? selectedCategory.name : "Brak"}
           </TextUI>
         </View>
       </View>
